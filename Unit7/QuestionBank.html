@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>بانک سوالات استاندارد - واحد کار هفتم: لایه‌ها در فتوشاپ</title>
+<style>
+    :root {
+        --primary-color: #1a237e;
+        --secondary-color: #3949ab;
+        --accent-color: #00bcd4;
+        --bg-color: #f5f7fa;
+        --text-color: #2c3e50;
+        --success-color: #2e7d32;
+        --success-bg: #e8f5e9;
+        --warning-color: #e65100;
+        --warning-bg: #fff8e1;
+        --danger-color: #c62828;
+        --danger-bg: #ffebee;
+        --info-color: #1565c0;
+        --info-bg: #e3f2fd;
+        --gradient-header: linear-gradient(135deg, #1a237e 0%, #3949ab 50%, #00bcd4 100%);
+        --shadow: 0 8px 24px rgba(0,0,0,0.08);
+        --shadow-hover: 0 12px 32px rgba(0,0,0,0.15);
+    }
+
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        font-family: Tahoma, Arial, sans-serif;
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        line-height: 1.8;
+        font-size: 16px;
+        padding-bottom: 50px;
+        overflow-x: hidden;
+    }
+
+    /* --- Header --- */
+    .header-section {
+        background: var(--gradient-header);
+        color: #fff;
+        padding: 30px 15px;
+        text-align: center;
+        border-radius: 0 0 20px 20px;
+        box-shadow: var(--shadow);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .header-section::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
+        animation: rotate 20s linear infinite;
+    }
+
+    @keyframes rotate {
+        100% { transform: rotate(360deg); }
+    }
+
+    .header-content {
+        position: relative;
+        z-index: 2;
+    }
+
+    .teacher-header {
+        display: inline-block;
+        background: rgba(255, 255, 255, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        padding: 6px 20px;
+        border-radius: 20px;
+        font-size: 0.95rem;
+        font-weight: bold;
+        margin-bottom: 12px;
+        backdrop-filter: blur(5px);
+        letter-spacing: 0.5px;
+        animation: fadeInDown 0.8s ease;
+    }
+
+    @keyframes fadeInDown {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .header-section h1 {
+        font-size: 1.8rem;
+        margin-bottom: 8px;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .header-section .subtitle {
+        font-size: 1rem;
+        opacity: 0.95;
+        margin-bottom: 15px;
+    }
+
+    /* --- Tabs --- */
+    .tabs-container {
+        display: flex;
+        justify-content: center;
+        gap: 6px;
+        flex-wrap: wrap;
+        position: relative;
+        z-index: 2;
+        padding: 5px 0 0 0;
+    }
+
+    .tab-btn {
+        background: rgba(255,255,255,0.18);
+        border: 2px solid transparent;
+        color: #fff;
+        padding: 10px 16px;
+        font-family: Tahoma, Arial, sans-serif;
+        font-size: 0.85rem;
+        font-weight: bold;
+        border-radius: 12px 12px 0 0;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(5px);
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+
+    .tab-btn:hover {
+        background: rgba(255,255,255,0.35);
+        transform: translateY(-2px);
+    }
+
+    .tab-btn.active {
+        background: var(--bg-color);
+        color: var(--primary-color);
+        border-color: var(--bg-color);
+        box-shadow: 0 -4px 10px rgba(0,0,0,0.1);
+    }
+
+    /* --- Container --- */
+    .container {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .tab-content {
+        display: none;
+        animation: fadeIn 0.4s ease;
+    }
+
+    .tab-content.active {
+        display: block;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(15px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    h2 {
+        color: var(--primary-color);
+        font-size: 1.4rem;
+        margin: 28px 0 15px 0;
+        padding-bottom: 10px;
+        border-bottom: 3px solid var(--accent-color);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    h2::before {
+        content: '';
+        display: inline-block;
+        width: 6px;
+        height: 26px;
+        background: var(--gradient-header);
+        border-radius: 4px;
+        flex-shrink: 0;
+    }
+
+    p {
+        margin-bottom: 15px;
+        text-align: justify;
+    }
+
+    /* --- Question Card --- */
+    .question-card {
+        background: #fff;
+        border-radius: 12px;
+        padding: 20px;
+        margin: 18px 0;
+        box-shadow: var(--shadow);
+        border-right: 6px solid var(--secondary-color);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .question-card:hover {
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-hover);
+    }
+
+    .question-card.open {
+        border-right-color: var(--success-color);
+    }
+
+    .q-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 10px;
+        margin-bottom: 10px;
+    }
+
+    .q-number {
+        display: inline-block;
+        background: var(--gradient-header);
+        color: #fff;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: bold;
+        flex-shrink: 0;
+    }
+
+    .q-type {
+        display: inline-block;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: bold;
+        flex-shrink: 0;
+    }
+
+    .q-type.mc {
+        background: var(--info-bg);
+        color: var(--info-color);
+    }
+
+    .q-type.fill {
+        background: var(--warning-bg);
+        color: var(--warning-color);
+    }
+
+    .q-type.desc {
+        background: var(--success-bg);
+        color: var(--success-color);
+    }
+
+    .q-type.practical {
+        background: var(--danger-bg);
+        color: var(--danger-color);
+    }
+
+    .q-text {
+        font-size: 1rem;
+        margin-bottom: 8px;
+        line-height: 1.7;
+        font-weight: bold;
+        color: var(--text-color);
+    }
+
+    .q-options {
+        margin: 10px 0;
+        padding-right: 15px;
+    }
+
+    .q-options li {
+        margin-bottom: 6px;
+        list-style: none;
+        padding: 6px 12px;
+        border-radius: 8px;
+        transition: background 0.2s;
+    }
+
+    .q-options li:hover {
+        background: #f0f0f0;
+    }
+
+    .q-hint {
+        font-size: 0.85rem;
+        color: #888;
+        text-align: left;
+        margin-top: 8px;
+        font-style: italic;
+    }
+
+    .q-hint::before {
+        content: "👆 ";
+    }
+
+    .q-answer {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.5s ease, padding 0.3s ease, margin 0.3s ease;
+        background: var(--success-bg);
+        border-radius: 10px;
+        margin-top: 0;
+        padding: 0 18px;
+        border-right: 4px solid var(--success-color);
+    }
+
+    .question-card.open .q-answer {
+        max-height: 2000px;
+        padding: 15px 18px;
+        margin-top: 15px;
+    }
+
+    .q-answer .ans-title {
+        font-weight: bold;
+        color: var(--success-color);
+        margin-bottom: 8px;
+        font-size: 0.95rem;
+    }
+
+    .q-answer .ans-title::before {
+        content: "✅ ";
+    }
+
+    .q-answer p {
+        margin-bottom: 8px;
+        font-size: 0.95rem;
+        text-align: justify;
+    }
+
+    .q-answer .ans-list {
+        padding-right: 20px;
+        margin-bottom: 8px;
+    }
+
+    .q-answer .ans-list li {
+        margin-bottom: 4px;
+        font-size: 0.92rem;
+    }
+
+    /* --- Responsive --- */
+    @media (max-width: 900px) {
+        .tab-btn {
+            padding: 9px 13px;
+            font-size: 0.78rem;
+        }
+    }
+
+    @media (max-width: 700px) {
+        .header-section {
+            padding: 25px 10px;
+            border-radius: 0 0 15px 15px;
+        }
+
+        .teacher-header {
+            font-size: 0.82rem;
+            padding: 5px 14px;
+            margin-bottom: 10px;
+        }
+
+        .header-section h1 {
+            font-size: 1.4rem;
+        }
+
+        .header-section .subtitle {
+            font-size: 0.9rem;
+        }
+
+        .tabs-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 6px;
+            padding: 8px 0 12px 0;
+        }
+
+        .tab-btn {
+            padding: 8px 10px;
+            font-size: 0.75rem;
+            border-radius: 8px;
+            white-space: normal;
+            text-align: center;
+            line-height: 1.3;
+            min-height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .tab-btn.active {
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+        }
+
+        .container {
+            padding: 12px;
+        }
+
+        .question-card {
+            padding: 15px;
+        }
+
+        .q-text {
+            font-size: 0.92rem;
+        }
+
+        .q-options li {
+            font-size: 0.88rem;
+        }
+
+        h2 {
+            font-size: 1.15rem;
+        }
+    }
+
+    @media (max-width: 380px) {
+        .tabs-container {
+            grid-template-columns: 1fr;
+        }
+
+        .header-section h1 {
+            font-size: 1.2rem;
+        }
+
+        .teacher-header {
+            font-size: 0.75rem;
+            padding: 4px 12px;
+        }
+    }
+
+    /* --- Footer --- */
+    .footer {
+        text-align: center;
+        margin-top: 40px;
+        padding: 18px 10px;
+        color: #78909c;
+        font-size: 0.85rem;
+        border-top: 1px solid #e0e0e0;
+    }
+
+    /* --- Stats Bar --- */
+    .stats-bar {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin: 15px 0 25px 0;
+    }
+
+    .stat-item {
+        background: #fff;
+        padding: 10px 20px;
+        border-radius: 12px;
+        box-shadow: var(--shadow);
+        font-size: 0.9rem;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .stat-item .num {
+        color: var(--primary-color);
+        font-size: 1.3rem;
+    }
+
+    @media (max-width: 700px) {
+        .stat-item {
+            padding: 8px 14px;
+            font-size: 0.8rem;
+        }
+        .stat-item .num {
+            font-size: 1.1rem;
+        }
+    }
+</style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<div class="header-section">
+    <div class="header-content">
+        <div class="teacher-header">مدرس: دکتر مریم هوتی‌نژاد</div>
+        <h1>📝 بانک سوالات استاندارد</h1>
+        <div class="subtitle">واحد کار هفتم: لایه‌ها در فتوشاپ</div>
+        <div class="tabs-container">
+            <button class="tab-btn active" onclick="openTab(event, 'tab-all')">📚 همه سوالات</button>
+            <button class="tab-btn" onclick="openTab(event, 'tab-mc')">🔘 چهارگزینه‌ای</button>
+            <button class="tab-btn" onclick="openTab(event, 'tab-fill')">✏️ جای خالی</button>
+            <button class="tab-btn" onclick="openTab(event, 'tab-desc')">📖 تشریحی</button>
+            <button class="tab-btn" onclick="openTab(event, 'tab-practical')">🛠️ عملکردی</button>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+
+    <!-- ===== TAB: ALL ===== -->
+    <div id="tab-all" class="tab-content active">
+        <h2>📚 همه سوالات (۵۰ سوال)</h2>
+        <p style="text-align:center; color:#546e7a; margin-bottom:20px;">برای مشاهده پاسخ هر سوال، روی آن کلیک کنید.</p>
+        <div id="all-questions"></div>
+    </div>
+
+    <!-- ===== TAB: MC ===== -->
+    <div id="tab-mc" class="tab-content">
+        <h2>🔘 سوالات چهارگزینه‌ای</h2>
+        <div class="stats-bar">
+            <div class="stat-item"><span class="num">۱۵</span> سوال</div>
+        </div>
+        <div id="mc-questions"></div>
+    </div>
+
+    <!-- ===== TAB: FILL ===== -->
+    <div id="tab-fill" class="tab-content">
+        <h2>✏️ سوالات جای خالی</h2>
+        <div class="stats-bar">
+            <div class="stat-item"><span class="num">۱۰</span> سوال</div>
+        </div>
+        <div id="fill-questions"></div>
+    </div>
+
+    <!-- ===== TAB: DESC ===== -->
+    <div id="tab-desc" class="tab-content">
+        <h2>📖 سوالات تشریحی</h2>
+        <div class="stats-bar">
+            <div class="stat-item"><span class="num">۱۵</span> سوال</div>
+        </div>
+        <div id="desc-questions"></div>
+    </div>
+
+    <!-- ===== TAB: PRACTICAL ===== -->
+    <div id="tab-practical" class="tab-content">
+        <h2>🛠️ سوالات عملکردی</h2>
+        <div class="stats-bar">
+            <div class="stat-item"><span class="num">۱۰</span> سوال</div>
+        </div>
+        <div id="practical-questions"></div>
+    </div>
+
+</div>
+
+<!-- ===== FOOTER ===== -->
+<div class="footer">
+    تولید کننده محتوای الکترونیک: واحد کار ۷ | مدرس: دکتر مریم هوتی‌نژاد
+</div>
+
+<script>
+    // ==================== DATA ====================
+    const questions = [
+        // ---------- چهارگزینه‌ای (۱۵ سوال) ----------
+        {
+            id: 1, type: "mc",
+            text: "توسط کدام ابزار می‌توان یک متن را به تصویر اضافه کرد؟",
+            options: ["Line Tool", "Type Tool", "Pen Tool", "Hand Tool"],
+            answer: "گزینه ب) Type Tool — ابزار Type Tool (کلید T) برای ایجاد و ویرایش متن در فتوشاپ استفاده می‌شود."
+        },
+        {
+            id: 2, type: "mc",
+            text: "دستور Flatten Image در منوی Layer چه کاری انجام می‌دهد؟",
+            options: [
+                "لایه فعال را با لایه زیرین ادغام می‌کند.",
+                "لایه فعال را با لایه روی آن ادغام می‌کند.",
+                "تمام لایه‌ها را به‌صورت یک لایه Background در می‌آورد.",
+                "فقط لایه‌هایی که دیده می‌شوند را با هم ادغام می‌کند."
+            ],
+            answer: "گزینه ج) تمام لایه‌ها را به‌صورت یک لایه Background در می‌آورد. — Flatten Image تمام لایه‌های آشکار را در یک لایه واحد فشرده می‌کند و لایه‌های مخفی حذف می‌شوند."
+        },
+        {
+            id: 3, type: "mc",
+            text: "وجود قلم‌موی نقاشی در کنار لایه نشانه چیست؟",
+            options: ["اتصال لایه", "گروه شدن لایه", "فعال بودن لایه", "ادغام لایه"],
+            answer: "گزینه ج) فعال بودن لایه — قلم‌مو در کنار لایه نشان‌دهنده لایه فعال است."
+        },
+        {
+            id: 4, type: "mc",
+            text: "برای این که جلوه‌های یک لایه را بر روی لایه دیگر کپی نماییم از کدام گزینه استفاده می‌کنیم؟",
+            options: [
+                "انتخاب Layer Via Copy از منوی Layer / New",
+                "از منوی Layer / Layer Style گزینه Layer Style را انتخاب کرده و سپس در لایه مزبور Paste را از منوی Edit انتخاب می‌کنیم",
+                "از منوی Layer / Layer Style گزینه Layer Style را انتخاب کرده و سپس در لایه مزبور Paste Layer Style را از همین منو انتخاب می‌کنیم",
+                "انتخاب Layer / New از منوی Layer Via Cut"
+            ],
+            answer: "گزینه ج) — برای کپی جلوه‌های لایه، از Copy Layer Style و Paste Layer Style استفاده می‌شود."
+        },
+        {
+            id: 5, type: "mc",
+            text: "با اجرای کدام‌یک از دستورات زیر لایه بالایی با لایه زیرین در یک لایه ادغام می‌شود؟",
+            options: ["Merge Down", "Merge Linked", "Delete Layer", "Flatten Image"],
+            answer: "گزینه الف) Merge Down — دستور Merge Down (Ctrl+E) لایه فعال را با لایه زیرین ادغام می‌کند."
+        },
+        {
+            id: 6, type: "mc",
+            text: "برای فعال کردن پانل لایه‌ها از کدام کلید میان‌بر استفاده می‌شود؟",
+            options: ["F5", "F6", "F7", "F8"],
+            answer: "گزینه ج) F7 — کلید F7 پانل Layer را باز و فعال می‌کند."
+        },
+        {
+            id: 7, type: "mc",
+            text: "برای نمایش یا عدم نمایش خط‌کش از کدام کلید میان‌بر استفاده می‌شود؟",
+            options: ["Ctrl+R", "Ctrl+H", "Ctrl+;", "Ctrl+'"],
+            answer: "گزینه الف) Ctrl+R — کلید Ctrl+R خط‌کش را نمایش یا مخفی می‌کند."
+        },
+        {
+            id: 8, type: "mc",
+            text: "کدام گزینه برای ایجاد لایه جدید از محدوده انتخاب شده، تصویر اصلی را بدون تغییر باقی می‌گذارد؟",
+            options: ["Layer via Cut", "Layer via Copy", "Flatten Image", "Merge Down"],
+            answer: "گزینه ب) Layer via Copy — در این روش یک کپی از محدوده انتخاب در لایه جدید ایجاد می‌شود و تصویر اصلی دست‌نخورده می‌ماند."
+        },
+        {
+            id: 9, type: "mc",
+            text: "برای انتقال لایه به بالاترین لایه از کدام میان‌بر استفاده می‌شود؟",
+            options: ["Ctrl + ]", "Ctrl + [", "Ctrl + Shift + ]", "Ctrl + Shift + ["],
+            answer: "گزینه ج) Ctrl + Shift + ] — برای انتقال به بالاترین لایه استفاده می‌شود. (Ctrl + ] برای یک لایه بالاتر و Ctrl + [ برای یک لایه پایین‌تر است.)"
+        },
+        {
+            id: 10, type: "mc",
+            text: "کدام جلوه لایه باعث ایجاد سایه به سمت داخل می‌شود؟",
+            options: ["Drop Shadow", "Inner Shadow", "Outer Glow", "Inner Glow"],
+            answer: "گزینه ب) Inner Shadow — این جلوه سایه را به سمت داخل ایجاد می‌کند."
+        },
+        {
+            id: 11, type: "mc",
+            text: "برای تغییر نام یک لایه، پس از دابل کلیک روی نام آن، از کدام کلید استفاده می‌شود؟",
+            options: ["Space", "Enter", "Tab", "Esc"],
+            answer: "گزینه ب) Enter — پس از تایپ نام جدید، کلید Enter را می‌فشاریم."
+        },
+        {
+            id: 12, type: "mc",
+            text: "کدام گزینه برای ایجاد جلوه درخشندگی از داخل (به‌نظر می‌رسد حروف خودشان می‌درخشند) استفاده می‌شود؟",
+            options: ["Outer Glow", "Inner Glow", "Drop Shadow", "Bevel"],
+            answer: "گزینه ب) Inner Glow — درخشندگی از داخل که برای تأکید بر بخشی از متن مناسب است."
+        },
+        {
+            id: 13, type: "mc",
+            text: "در پنجره Layer Style، برای ذخیره مجموعه‌ای از جلوه‌ها تحت یک نام، از کدام دکمه استفاده می‌شود؟",
+            options: ["OK", "Cancel", "New Style", "Preview"],
+            answer: "گزینه ج) New Style — با این دکمه می‌توان مجموعه جلوه‌ها را تحت یک نام ذخیره کرد."
+        },
+        {
+            id: 14, type: "mc",
+            text: "کدام فرمت فایل، امکان ذخیره‌سازی به‌صورت لایه‌ای (Layer) را دارد؟",
+            options: ["JPG", "PNG", "PSD", "BMP"],
+            answer: "گزینه ج) PSD — فرمت پیش‌فرض فتوشاپ که امکان ذخیره فایل به‌صورت لایه‌ای را دارد. (فرمت TIF نیز این امکان را دارد.)"
+        },
+        {
+            id: 15, type: "mc",
+            text: "برای تبدیل یک متن کاراکتری به پاراگرافی از کدام دستور استفاده می‌شود؟",
+            options: ["Convert to Point Text", "Convert to Paragraph Text", "Rasterize Type", "Create Warped Text"],
+            answer: "گزینه ب) Convert to Paragraph Text — از منوی Type این دستور برای تبدیل متن کاراکتری به پاراگرافی استفاده می‌شود."
+        },
+
+        // ---------- جای خالی (۱۰ سوال) ----------
+        {
+            id: 16, type: "fill",
+            text: "پانل لایه‌ها با کلید میان‌بر .................... باز می‌شود.",
+            answer: "F7 — کلید F7 پانل Layer را باز می‌کند."
+        },
+        {
+            id: 17, type: "fill",
+            text: "برای افزایش و یا کاهش شفافیت لایه از گزینه .................... در پانل لایه‌ها استفاده می‌شود.",
+            answer: "Opacity — گزینه Opacity میزان شفافیت لایه را تنظیم می‌کند."
+        },
+        {
+            id: 18, type: "fill",
+            text: "دستور .................... تمام لایه‌های آشکار را در یک لایه Background فشرده می‌کند.",
+            answer: "Flatten Image — از منوی Layer این دستور برای یکدست کردن لایه‌ها استفاده می‌شود."
+        },
+        {
+            id: 19, type: "fill",
+            text: "برای ارتباط دادن لایه‌ها از گزینه .................... استفاده می‌شود.",
+            answer: "Link Layers — این گزینه لایه‌های انتخاب شده را با یکدیگر مرتبط می‌کند."
+        },
+        {
+            id: 20, type: "fill",
+            text: "برای ایجاد لایه جدید از محدوده انتخاب شده بدون تغییر تصویر اصلی، از دستور .................... استفاده می‌شود.",
+            answer: "Layer via Copy — این دستور یک کپی از محدوده انتخاب در لایه جدید ایجاد می‌کند."
+        },
+        {
+            id: 21, type: "fill",
+            text: "برای تبدیل لایه Background به یک لایه معمولی، از منوی Layer و زیر منوی New گزینه .................... را انتخاب می‌کنیم.",
+            answer: "Background from Layer — با این گزینه لایه Background به لایه معمولی تبدیل می‌شود."
+        },
+        {
+            id: 22, type: "fill",
+            text: "برای ایجاد سایه روی متن، از جلوه .................... در پنجره Layer Style استفاده می‌شود.",
+            answer: "Drop Shadow — این جلوه به متن بعد داده و آن را برجسته‌تر می‌کند."
+        },
+        {
+            id: 23, type: "fill",
+            text: "برای اعمال دور خط با یک رنگ و پهنای دلخواه به موضوع، از گزینه .................... استفاده می‌شود.",
+            answer: "Stroke — این گزینه یک حاشیه رنگی دور شیء ایجاد می‌کند."
+        },
+        {
+            id: 24, type: "fill",
+            text: "برای ایجاد پیچ و تاب یا اعوجاج در متن، از گزینه .................... در نوار Options استفاده می‌شود.",
+            answer: "Create Warped Text — این گزینه پنجره‌ای برای تعیین نوع اعوجاج باز می‌کند."
+        },
+        {
+            id: 25, type: "fill",
+            text: "برای تبدیل یک متن پاراگرافی به متن کاراکتری، از دستور .................... استفاده می‌شود.",
+            answer: "Convert to Point Text — از منوی Type برای این تبدیل استفاده می‌شود."
+        },
+
+        // ---------- تشریحی (۱۵ سوال) ----------
+        {
+            id: 26, type: "desc",
+            text: "مفهوم لایه را در فتوشاپ توضیح دهید.",
+            answer: "لایه‌ها در فتوشاپ مانند طلق‌های شفاف روی هم قرار می‌گیرند. هر لایه یک بخش مستقل از تصویر است که می‌توان آن را جداگانه ویرایش، جابجا، مخفی یا حذف کرد. هر تغییری که روی یک لایه اعمال می‌شود، بر لایه‌های دیگر تأثیری ندارد. این ویژگی، ویرایش غیرمخرب را ممکن می‌سازد."
+        },
+        {
+            id: 27, type: "desc",
+            text: "روش‌های مختلف مخفی و آشکار کردن لایه‌ها را نام ببرید.",
+            answer: "برای مخفی یا آشکار کردن لایه‌ها می‌توان از آیکون چشم در کنار نام لایه در پانل لایه‌ها استفاده کرد. با کلیک روی آیکون چشم، لایه مخفی می‌شود (مربع خالی جای آن را می‌گیرد) و با کلیک مجدد، لایه آشکار می‌شود."
+        },
+        {
+            id: 28, type: "desc",
+            text: "چگونه می‌توان ترتیب لایه‌ها را در پانل لایه‌ها تغییر داد؟",
+            answer: "سه روش وجود دارد: ۱) درگ کردن لایه به بالا و پایین در پانل. ۲) استفاده از میان‌بر Ctrl + ] برای انتقال به لایه بالاتر و Ctrl + [ برای انتقال به لایه پایین‌تر. ۳) استفاده از Ctrl + Shift + ] برای انتقال به بالاترین لایه و Ctrl + Shift + [ برای انتقال به پایین‌ترین لایه."
+        },
+        {
+            id: 29, type: "desc",
+            text: "روش‌های حذف یک لایه را توضیح دهید.",
+            answer: "سه روش: ۱) کلیک روی آیکون منوی پانل و انتخاب گزینه Layer (یا Delete Layer). ۲) کلیک روی دکمه سطل آشغال پانل لایه‌ها یا درگ کردن لایه به سمت آن. ۳) از منوی Layer گزینه Delete Layer را انتخاب کنیم."
+        },
+        {
+            id: 30, type: "desc",
+            text: "چگونه می‌توان یک لایه را با لایه دیگر مرتبط کرد؟",
+            answer: "ابتدا لایه‌های موردنظر را با Shift و کلیک انتخاب می‌کنیم. سپس با کلیک راست از منوی زمینه‌ای یا منوی پانل گزینه Link Layers را اجرا می‌کنیم. با این کار لایه‌ها با هم جابجا خواهند شد."
+        },
+        {
+            id: 31, type: "desc",
+            text: "روش‌های نسخه‌برداری از لایه‌ها را نام ببرید.",
+            answer: "چهار روش: ۱) منوی پانل و انتخاب Duplicate Layer. ۲) از منوی Layer گزینه Duplicate Layer. ۳) درگ کردن لایه روی دکمه New Layer در پایین پانل. ۴) نگه داشتن کلید Alt و درگ کردن لایه."
+        },
+        {
+            id: 32, type: "desc",
+            text: "تفاوت Layer via Copy و Layer via Cut چیست؟",
+            answer: "در Layer via Copy، از محدوده انتخاب شده یک کپی در لایه جدید ایجاد می‌شود و تصویر اصلی بدون تغییر باقی می‌ماند. اما در Layer via Cut، محدوده انتخاب شده از تصویر اصلی برش خورده و به لایه جدید منتقل می‌شود."
+        },
+        {
+            id: 33, type: "desc",
+            text: "دستور Flatten Image چه کاری انجام می‌دهد؟",
+            answer: "این دستور تمام لایه‌های آشکار را در یک لایه Background فشرده می‌کند. اگر لایه مخفی وجود داشته باشد، هنگام Flatten کردن حذف خواهد شد. این دستور برای کاهش حجم فایل و ذخیره در فرمت‌های غیرلایه‌ای استفاده می‌شود."
+        },
+        {
+            id: 34, type: "desc",
+            text: "روش‌های ادغام لایه‌ها را نام ببرید.",
+            answer: "سه روش اصلی: ۱) Merge Layers — ادغام لایه‌های انتخاب شده در یک لایه. ۲) Merge Down (Ctrl+E) — ادغام لایه فعال با لایه زیرین. ۳) Merge Visible — ادغام تمام لایه‌های آشکار."
+        },
+        {
+            id: 35, type: "desc",
+            text: "ویرایش غیر تخریبی لایه‌ها را توضیح دهید.",
+            answer: "در ویرایش غیر تخریبی (Nondestructive Editing)، به‌جای اعمال مستقیم تغییرات روی تصویر، از یک لایه مجزا برای اعمال تغییرات استفاده می‌کنیم. این کار امکان حذف یا تغییر تغییرات را فراهم می‌کند و تصویر اصلی همیشه بدون تغییر حفظ می‌شود. لایه‌های تنظیم رنگ، جلوه‌گذاری و ماسک‌های لایه از این نوع هستند."
+        },
+        {
+            id: 36, type: "desc",
+            text: "چگونه می‌توان یک لایه تنظیم رنگ ایجاد کرد؟",
+            answer: "پانل لایه را باز می‌کنیم، سپس از پایین پانل روی آیکون Create new fill or Adjustment Layer کلیک می‌کنیم. از لیست باز شده، دستور تنظیم رنگ دلخواه (مثل Hue/Saturation) را انتخاب می‌کنیم. یک لایه جدید ایجاد می‌شود و تنظیمات آن در پانل Properties قابل ویرایش است."
+        },
+        {
+            id: 37, type: "desc",
+            text: "ابزارهای ایجاد متن در فتوشاپ را نام ببرید.",
+            answer: "چهار ابزار: ۱) Horizontal Type Tool — ایجاد و ویرایش متن افقی. ۲) Vertical Type Tool — ایجاد و ویرایش متن عمودی. ۳) Vertical Type Mask Tool — ماسک متنی عمودی (ایجاد ناحیه انتخاب متنی). ۴) Horizontal Type Mask Tool — ماسک متنی افقی."
+        },
+        {
+            id: 38, type: "desc",
+            text: "تفاوت متن هنری و متن پاراگرافی چیست؟",
+            answer: "متن هنری با کلیک ابزار متن روی صفحه ایجاد می‌شود و برای عناوین و متن‌های کوتاه مناسب است. متن پاراگرافی با درگ کردن یک کادر مستطیلی ایجاد می‌شود و برای متن‌های طولانی و چندخطی کاربرد دارد. در متن پاراگرافی با رسیدن کلمات به آخر سطر، ادامه آن‌ها به سطر بعد منتقل می‌شود."
+        },
+        {
+            id: 39, type: "desc",
+            text: "چگونه می‌توان یک متن کاراکتری را به پاراگرافی تبدیل کرد؟",
+            answer: "لایه متنی را در پانل لایه‌ها انتخاب می‌کنیم، سپس از منوی Type دستور Convert to Paragraph Text را اجرا می‌کنیم. برای تبدیل برعکس (پاراگرافی به کاراکتری) از دستور Convert to Point Text استفاده می‌شود."
+        },
+        {
+            id: 40, type: "desc",
+            text: "تنظیمات مهم در جلوه Drop Shadow را توضیح دهید.",
+            answer: "تنظیمات مهم: Opacity (میزان کدری سایه)، Angle (زاویه تابش نور)، Distance (فاصله سایه)، Spread (انتشار و وسعت سایه)، Size (اندازه سایه)، Contour (طرح یا محیط مرئی) و Noise (انتشار نویز). فعال بودن گزینه Preview امکان مشاهده هم‌زمان تغییرات را فراهم می‌کند."
+        },
+
+        // ---------- عملکردی (۱۰ سوال) ----------
+        {
+            id: 41, type: "practical",
+            text: "یک سند جدید باز کنید و سه لایه جدید ایجاد کنید. نام هر لایه را به ترتیب «پس‌زمینه»، «تصویر» و «متن» تغییر دهید.",
+            answer: "مراحل: ۱) File > New برای ایجاد سند جدید. ۲) سه بار از منوی Layer > New > Layer یا کلیک روی آیکون + در پانل لایه‌ها. ۳) دابل کلیک روی نام هر لایه، تایپ نام جدید و Enter."
+        },
+        {
+            id: 42, type: "practical",
+            text: "یک لایه جدید ایجاد کنید، سپس با استفاده از ابزار Brush روی آن ترسیم کنید و شفافیت لایه را به ۵۰٪ کاهش دهید.",
+            answer: "مراحل: ۱) ایجاد لایه جدید (Layer > New > Layer). ۲) انتخاب ابزار Brush (کلید B) و ترسیم. ۳) در پانل لایه‌ها، مقدار Opacity را از ۱۰۰٪ به ۵۰٪ تغییر دهید."
+        },
+        {
+            id: 43, type: "practical",
+            text: "دو لایه ایجاد کنید، سپس با استفاده از گزینه Link Layers آن‌ها را به هم مرتبط کنید و هر دو را با هم جابجا کنید.",
+            answer: "مراحل: ۱) ایجاد دو لایه. ۲) انتخاب هر دو لایه با Shift+کلیک. ۳) کلیک راست و انتخاب Link Layers (یا کلیک روی آیکون زنجیر). ۴) با ابزار Move هر دو لایه با هم جابجا می‌شوند."
+        },
+        {
+            id: 44, type: "practical",
+            text: "یک متن با ابزار Type Tool تایپ کنید، سپس اندازه و رنگ آن را از پانل Character تغییر دهید.",
+            answer: "مراحل: ۱) انتخاب ابزار Type Tool (T) و کلیک روی صفحه. ۲) تایپ متن. ۳) باز کردن پانل Character (Window > Character). ۴) تغییر Size و Color از پانل."
+        },
+        {
+            id: 45, type: "practical",
+            text: "به یک متن، جلوه Drop Shadow اعمال کنید و تنظیمات Opacity، Distance و Size آن را تغییر دهید.",
+            answer: "مراحل: ۱) انتخاب لایه متنی. ۲) دابل کلیک روی لایه یا Layer > Layer Style > Drop Shadow. ۳) در پنجره Layer Style، تنظیم Opacity، Distance و Size. ۴) کلیک OK."
+        },
+        {
+            id: 46, type: "practical",
+            text: "یک لایه تنظیم رنگ Hue/Saturation ایجاد کنید و رنگ تصویر را تغییر دهید، سپس لایه تنظیم رنگ را حذف کنید و بازگرداندن تصویر اصلی را مشاهده کنید.",
+            answer: "مراحل: ۱) کلیک روی آیکون Create new fill or Adjustment Layer در پایین پانل لایه‌ها. ۲) انتخاب Hue/Saturation. ۳) تغییر لغزنده Hue در پانل Properties. ۴) حذف لایه تنظیم رنگ (کشیدن به سطل آشغال) و مشاهده بازگشت تصویر اصلی."
+        },
+        {
+            id: 47, type: "practical",
+            text: "یک محدوده انتخاب با ابزار Marquee ایجاد کنید، سپس با Layer via Copy آن را به لایه جدید منتقل کنید.",
+            answer: "مراحل: ۱) انتخاب ابزار Marquee (M) و ایجاد محدوده انتخاب. ۲) از منوی Layer > New > Layer via Copy (یا Ctrl+J). ۳) مشاهده لایه جدید در پانل لایه‌ها."
+        },
+        {
+            id: 48, type: "practical",
+            text: "دو لایه را با دستور Merge Down ادغام کنید و نتیجه را در پانل لایه‌ها بررسی کنید.",
+            answer: "مراحل: ۱) انتخاب لایه بالایی. ۲) از منوی Layer گزینه Merge Down (یا Ctrl+E) را اجرا کنید. ۳) مشاهده اینکه دو لایه به یک لایه تبدیل شدند."
+        },
+        {
+            id: 49, type: "practical",
+            text: "یک متن پاراگرافی ایجاد کنید و با استفاده از پانل Paragraph، ترازبندی آن را تغییر دهید.",
+            answer: "مراحل: ۱) انتخاب ابزار Type Tool و درگ کردن یک کادر مستطیلی. ۲) تایپ متن طولانی. ۳) باز کردن پانل Paragraph (Window > Paragraph). ۴) انتخاب یکی از گزینه‌های ترازبندی (چپ، راست، وسط، جفت)."
+        },
+        {
+            id: 50, type: "practical",
+            text: "یک لایه تنظیم رنگ ایجاد کنید، سپس آن را با لایه زیرین ادغام کنید و نتیجه را در فرمت JPG ذخیره کنید.",
+            answer: "مراحل: ۱) ایجاد لایه تنظیم رنگ (مثلاً Hue/Saturation). ۲) انتخاب لایه تنظیم رنگ و لایه زیرین آن با Shift. ۳) از منوی Layer گزینه Merge Layers را اجرا کنید. ۴) File > Save As و انتخاب فرمت JPG."
+        }
+    ];
+
+    // ==================== RENDER FUNCTIONS ====================
+    const typeLabels = {
+        mc: { label: "چهارگزینه‌ای", class: "mc" },
+        fill: { label: "جای خالی", class: "fill" },
+        desc: { label: "تشریحی", class: "desc" },
+        practical: { label: "عملکردی", class: "practical" }
+    };
+
+    function createQuestionCard(q) {
+        const typeInfo = typeLabels[q.type];
+        let optionsHTML = '';
+        if (q.type === 'mc' && q.options) {
+            optionsHTML = '<ul class="q-options">' +
+                q.options.map((opt, i) => {
+                    const letters = ['الف', 'ب', 'ج', 'د'];
+                    return `<li>${letters[i]}) ${opt}</li>`;
+                }).join('') +
+                '</ul>';
+        }
+        return `
+            <div class="question-card" onclick="toggleAnswer(this)">
+                <div class="q-header">
+                    <span class="q-number">سوال ${q.id}</span>
+                    <span class="q-type ${typeInfo.class}">${typeInfo.label}</span>
+                </div>
+                <div class="q-text">${q.text}</div>
+                ${optionsHTML}
+                <div class="q-hint">برای مشاهده پاسخ کلیک کنید</div>
+                <div class="q-answer">
+                    <div class="ans-title">پاسخ</div>
+                    <p>${q.answer}</p>
+                </div>
+            </div>
+        `;
+    }
+
+    function renderQuestions(containerId, filterType) {
+        const container = document.getElementById(containerId);
+        let filtered = questions;
+        if (filterType) {
+            filtered = questions.filter(q => q.type === filterType);
+        }
+        container.innerHTML = filtered.map(createQuestionCard).join('');
+    }
+
+    function toggleAnswer(el) {
+        el.classList.toggle('open');
+        const hint = el.querySelector('.q-hint');
+        if (el.classList.contains('open')) {
+            hint.textContent = 'برای بستن پاسخ کلیک کنید';
+            hint.style.color = '#2e7d32';
+        } else {
+            hint.textContent = 'برای مشاهده پاسخ کلیک کنید';
+            hint.style.color = '#888';
+        }
+    }
+
+    // ==================== TABS ====================
+    function openTab(evt, tabId) {
+        var tabContents = document.getElementsByClassName("tab-content");
+        for (var i = 0; i < tabContents.length; i++) {
+            tabContents[i].classList.remove("active");
+        }
+        var tabBtns = document.getElementsByClassName("tab-btn");
+        for (var i = 0; i < tabBtns.length; i++) {
+            tabBtns[i].classList.remove("active");
+        }
+        document.getElementById(tabId).classList.add("active");
+        evt.currentTarget.classList.add("active");
+    }
+
+    // ==================== INIT ====================
+    document.addEventListener('DOMContentLoaded', function() {
+        renderQuestions('all-questions', null);
+        renderQuestions('mc-questions', 'mc');
+        renderQuestions('fill-questions', 'fill');
+        renderQuestions('desc-questions', 'desc');
+        renderQuestions('practical-questions', 'practical');
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>درسنامه الکترونیک - واحد کار هفتم: لایه‌ها در فتوشاپ</title>
+<style>
+    :root {
+        --primary-color: #1a237e;
+        --secondary-color: #3949ab;
+        --accent-color: #00bcd4;
+        --bg-color: #f5f7fa;
+        --text-color: #2c3e50;
+        --box-example-bg: #e8f5e9;
+        --box-example-border: #4caf50;
+        --box-note-bg: #fff8e1;
+        --box-note-border: #ffb300;
+        --box-warning-bg: #ffebee;
+        --box-warning-border: #e53935;
+        --box-table-bg: #e3f2fd;
+        --box-table-border: #1e88e5;
+        --gradient-header: linear-gradient(135deg, #1a237e 0%, #3949ab 50%, #00bcd4 100%);
+        --gradient-btn: linear-gradient(135deg, #00bcd4 0%, #1a237e 100%);
+        --shadow: 0 8px 24px rgba(0,0,0,0.08);
+        --shadow-hover: 0 12px 32px rgba(0,0,0,0.15);
+    }
+
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        font-family: Tahoma, Arial, sans-serif;
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        line-height: 1.8;
+        font-size: 16px;
+        padding-bottom: 50px;
+        overflow-x: hidden;
+    }
+
+    /* --- Header & Tabs --- */
+    .header-section {
+        background: var(--gradient-header);
+        color: #fff;
+        padding: 30px 15px 0 15px;
+        text-align: center;
+        border-radius: 0 0 20px 20px;
+        box-shadow: var(--shadow);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .header-section::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
+        animation: rotate 20s linear infinite;
+    }
+
+    @keyframes rotate {
+        100% { transform: rotate(360deg); }
+    }
+
+    .header-content {
+        position: relative;
+        z-index: 2;
+    }
+
+    /* --- Teacher Name in Header (Top) --- */
+    .teacher-header {
+        display: inline-block;
+        background: rgba(255, 255, 255, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        padding: 6px 20px;
+        border-radius: 20px;
+        font-size: 0.95rem;
+        font-weight: bold;
+        margin-bottom: 12px;
+        backdrop-filter: blur(5px);
+        letter-spacing: 0.5px;
+        animation: fadeInDown 0.8s ease;
+    }
+
+    @keyframes fadeInDown {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .header-section h1 {
+        font-size: 1.8rem;
+        margin-bottom: 8px;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .header-section .subtitle {
+        font-size: 1rem;
+        opacity: 0.95;
+        margin-bottom: 20px;
+    }
+
+    /* --- Tabs (Responsive) --- */
+    .tabs-container {
+        display: flex;
+        justify-content: center;
+        gap: 6px;
+        flex-wrap: wrap;
+        position: relative;
+        z-index: 2;
+        padding: 5px 0 0 0;
+    }
+
+    .tab-btn {
+        background: rgba(255,255,255,0.18);
+        border: 2px solid transparent;
+        color: #fff;
+        padding: 10px 16px;
+        font-family: Tahoma, Arial, sans-serif;
+        font-size: 0.85rem;
+        font-weight: bold;
+        border-radius: 12px 12px 0 0;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(5px);
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+
+    .tab-btn:hover {
+        background: rgba(255,255,255,0.35);
+        transform: translateY(-2px);
+    }
+
+    .tab-btn.active {
+        background: var(--bg-color);
+        color: var(--primary-color);
+        border-color: var(--bg-color);
+        box-shadow: 0 -4px 10px rgba(0,0,0,0.1);
+    }
+
+    /* --- Main Content Area --- */
+    .container {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .tab-content {
+        display: none;
+        animation: fadeIn 0.4s ease;
+    }
+
+    .tab-content.active {
+        display: block;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(15px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    h2 {
+        color: var(--primary-color);
+        font-size: 1.4rem;
+        margin: 28px 0 15px 0;
+        padding-bottom: 10px;
+        border-bottom: 3px solid var(--accent-color);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    h2::before {
+        content: '';
+        display: inline-block;
+        width: 6px;
+        height: 26px;
+        background: var(--gradient-btn);
+        border-radius: 4px;
+        flex-shrink: 0;
+    }
+
+    h3 {
+        color: var(--secondary-color);
+        font-size: 1.15rem;
+        margin: 22px 0 10px 0;
+    }
+
+    p {
+        margin-bottom: 15px;
+        text-align: justify;
+    }
+
+    ul, ol {
+        margin-bottom: 20px;
+        padding-right: 20px;
+    }
+
+    li {
+        margin-bottom: 8px;
+    }
+
+    /* --- Educational Boxes --- */
+    .edu-box {
+        border-radius: 12px;
+        padding: 18px 20px;
+        margin: 22px 0;
+        box-shadow: var(--shadow);
+        position: relative;
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        word-wrap: break-word;
+    }
+
+    .edu-box:hover {
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-hover);
+    }
+
+    .edu-box .box-title {
+        font-size: 1.1rem;
+        font-weight: bold;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .edu-box p:last-child {
+        margin-bottom: 0;
+    }
+
+    .box-example {
+        background-color: var(--box-example-bg);
+        border-right: 6px solid var(--box-example-border);
+        color: #1b5e20;
+    }
+    .box-example .box-title { color: #2e7d32; }
+
+    .box-note {
+        background-color: var(--box-note-bg);
+        border-right: 6px solid var(--box-note-border);
+        color: #795548;
+    }
+    .box-note .box-title { color: #e65100; }
+
+    .box-warning {
+        background-color: var(--box-warning-bg);
+        border-right: 6px solid var(--box-warning-border);
+        color: #b71c1c;
+    }
+    .box-warning .box-title { color: #c62828; }
+
+    .box-table {
+        background-color: var(--box-table-bg);
+        border-right: 6px solid var(--box-table-border);
+        color: #0d47a1;
+        padding: 15px;
+        overflow-x: auto;
+    }
+    .box-table .box-title { color: #1565c0; }
+
+    /* --- Tables --- */
+    .table-responsive {
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        margin: 12px 0;
+    }
+
+    table {
+        width: 100%;
+        min-width: 400px;
+        border-collapse: collapse;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    th, td {
+        padding: 10px 12px;
+        text-align: center;
+        border: 1px solid #e0e0e0;
+        font-size: 0.9rem;
+    }
+
+    th {
+        background: var(--gradient-header);
+        color: #fff;
+        font-weight: bold;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    tr:hover {
+        background-color: #f1f1f1;
+    }
+
+    /* --- Special Elements --- */
+    .highlight {
+        background: linear-gradient(120deg, #a8e6cf 0%, #dcedc1 100%);
+        padding: 1px 5px;
+        border-radius: 4px;
+        font-weight: bold;
+        color: #1a237e;
+    }
+
+    .formula-badge {
+        display: inline-block;
+        background: var(--primary-color);
+        color: #fff;
+        padding: 3px 10px;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: bold;
+        margin: 2px;
+    }
+
+    .question-box {
+        background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%);
+        border: 2px dashed var(--accent-color);
+        border-radius: 12px;
+        padding: 18px;
+        margin: 22px 0;
+        text-align: center;
+    }
+
+    .question-box .q-title {
+        font-size: 1.1rem;
+        font-weight: bold;
+        color: var(--primary-color);
+        margin-bottom: 8px;
+    }
+
+    .question-box .q-icon {
+        font-size: 1.8rem;
+        margin-bottom: 8px;
+        display: block;
+    }
+
+    /* --- Responsive Breakpoints --- */
+    @media (max-width: 900px) {
+        .tab-btn {
+            padding: 9px 13px;
+            font-size: 0.78rem;
+        }
+    }
+
+    @media (max-width: 700px) {
+        .header-section {
+            padding: 25px 10px 0 10px;
+            border-radius: 0 0 15px 15px;
+        }
+
+        .teacher-header {
+            font-size: 0.82rem;
+            padding: 5px 14px;
+            margin-bottom: 10px;
+        }
+
+        .header-section h1 {
+            font-size: 1.4rem;
+        }
+
+        .header-section .subtitle {
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .tabs-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 6px;
+            padding: 8px 0 12px 0;
+        }
+
+        .tab-btn {
+            padding: 8px 10px;
+            font-size: 0.75rem;
+            border-radius: 8px;
+            white-space: normal;
+            text-align: center;
+            line-height: 1.3;
+            min-height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .tab-btn.active {
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+        }
+
+        .container {
+            padding: 12px;
+        }
+
+        .edu-box {
+            padding: 14px;
+            margin: 18px 0;
+        }
+
+        h2 {
+            font-size: 1.15rem;
+        }
+
+        h3 {
+            font-size: 1rem;
+        }
+
+        p, li {
+            font-size: 0.92rem;
+        }
+
+        th, td {
+            padding: 8px 6px;
+            font-size: 0.8rem;
+        }
+
+        table {
+            min-width: 360px;
+        }
+    }
+
+    @media (max-width: 380px) {
+        .tabs-container {
+            grid-template-columns: 1fr;
+        }
+
+        .tab-btn {
+            font-size: 0.78rem;
+            min-height: 38px;
+        }
+
+        .header-section h1 {
+            font-size: 1.2rem;
+        }
+
+        .teacher-header {
+            font-size: 0.75rem;
+            padding: 4px 12px;
+        }
+    }
+
+    /* --- Footer --- */
+    .footer {
+        text-align: center;
+        margin-top: 40px;
+        padding: 18px 10px;
+        color: #78909c;
+        font-size: 0.85rem;
+        border-top: 1px solid #e0e0e0;
+    }
+</style>
+</head>
+<body>
+
+<!-- ===== HEADER & TABS ===== -->
+<div class="header-section">
+    <div class="header-content">
+        <div class="teacher-header">مدرس: دکتر مریم هوتی‌نژاد</div>
+        <h1>📚 درسنامه الکترونیک</h1>
+        <div class="subtitle">واحد کار هفتم: لایه‌ها در فتوشاپ</div>
+        <div class="tabs-container">
+            <button class="tab-btn active" onclick="openTab(event, 'tab1')">🎯 اهداف و مقدمه</button>
+            <button class="tab-btn" onclick="openTab(event, 'tab2')">🗂️ پانل لایه‌ها</button>
+            <button class="tab-btn" onclick="openTab(event, 'tab3')">⚙️ عملیات لایه‌ها</button>
+            <button class="tab-btn" onclick="openTab(event, 'tab4')">🎨 لایه تنظیم رنگ</button>
+            <button class="tab-btn" onclick="openTab(event, 'tab5')">📝 لایه‌های متنی</button>
+            <button class="tab-btn" onclick="openTab(event, 'tab6')">✨ جلوه‌های ویژه</button>
+            <button class="tab-btn" onclick="openTab(event, 'tab7')">🖼️ کارگاه پوستر</button>
+            <button class="tab-btn" onclick="openTab(event, 'tab8')">📝 خودآزمایی</button>
+        </div>
+    </div>
+</div>
+
+<!-- ===== MAIN CONTENT ===== -->
+<div class="container">
+
+    <!-- ========== TAB 1: اهداف و مقدمه ========== -->
+    <div id="tab1" class="tab-content active">
+        <h2>اهداف رفتاری واحد کار هفتم</h2>
+        <p>از هنرجو انتظار می‌رود در پایان این واحد کار:</p>
+        <ul>
+            <li>مفهوم لایه را در فتوشاپ توضیح دهد.</li>
+            <li>ترتیب لایه‌ها را در پانل لایه عوض کند.</li>
+            <li>بتواند لایه‌ها را مخفی، آشکار و به یکدیگر مرتبط کند.</li>
+            <li>بتواند یک فایل لایه باز را به یک فایل <strong>Flat</strong> یا تحت تبدیل کند.</li>
+            <li>بتواند متن را در فتوشاپ وارد کرده و جلوه‌های مختلفی را بر روی آن اعمال کند.</li>
+            <li>بتواند سبک و <strong>Style</strong> لایه را در فتوشاپ تغییر دهد.</li>
+            <li>بتواند در پانل لایه‌ها مدیریت لایه شامل کپی لایه، حذف لایه را انجام دهد.</li>
+            <li>بتواند لایه‌ها را با روش‌های مختلفی یا یکدیگر ادغام کند.</li>
+        </ul>
+
+        <h2>آشنایی با لایه‌ها و انجام عملیات بر روی آن‌ها</h2>
+        <p>لایه‌های فتوشاپ که قابلیت تغییر و ویرایش دارند معمولاً از چند لایه مستقل تشکیل شده‌اند. در زیر به لایه‌های شفاف مانند طلق‌های شفاف که می‌توانید از بین مناطق شفاف یک لایه به لایه زیر مراجعه کنید. همچنین می‌توانید مانند کشیدن یک طلق شفاف، یک لایه را حرکت دهید. برای قرار دادن مطالب روی لایه، این ویژگی موجب می‌شود تا آن محتوا شفاف شود. می‌توانید میزان کدری یک لایه را تغییر دهید تا حدی که این تغییرات بر روی سایر صفحات تأثیر بگذارد بدون این که بر روی یک لایه انجام شود. به عنوان مثال، می‌توانید یک لایه را روی یک لایه دیگر قرار دهید و در نهایت، این مجموعه از لایه‌ها بر روی هم مستند شده و تصویر نهایی ایجاد می‌شود. با استفاده از این لایه‌ها می‌توان کارهایی مانند ترکیب چند تصویر، اضافه کردن شفافیت، ترسیم روی هر صفحه و ایجاد تغییرات با هم انجام داد. ضمن این که این تغییرات، اثرات متقابل و بارزی بر روی صفحات دیگر ندارند و می‌توانند در نهایت به صورت یک تصویر نهایی مشاهده شوند.</p>
+
+        <div class="edu-box box-example">
+            <div class="box-title">💡 مثال کاربردی: لایه‌ها مانند طلق‌های شفاف</div>
+            <p>تصور کنید چند طلق شفاف دارید. روی طلق اول یک تصویر، روی طلق دوم متن و روی طلق سوم یک شکل ترسیم می‌کنید. حالا این طلق‌ها را روی هم می‌گذارید. هر طلق یک «لایه» است. می‌توانید هر طلق را جداگانه جابجا، مخفی یا ویرایش کنید بدون این‌که به بقیه طلق‌ها آسیبی برسد. فتوشاپ دقیقاً همین‌گونه کار می‌کند.</p>
+        </div>
+
+        <div class="edu-box box-note">
+            <div class="box-title">⚡ نکته طلایی</div>
+            <p>لایه‌ها در فتوشاپ مانند طلق‌های شفاف روی هم قرار می‌گیرند. هر تغییری که روی یک لایه اعمال می‌شود، بر لایه‌های دیگر تأثیری ندارد. این ویژگی، ویرایش غیرمخرب را ممکن می‌سازد.</p>
+        </div>
+    </div>
+
+    <!-- ========== TAB 2: پانل لایه‌ها ========== -->
+    <div id="tab2" class="tab-content">
+        <h2>پانل لایه‌ها (Layers Panel)</h2>
+        <p>قبل از انجام عملیات بر روی لایه‌ها لازم است از منوی <strong>Window</strong> گزینه <strong>Layer</strong> را اجرا کنید و یا <strong>F7</strong> را بفشارید. در این حالت می‌توانید با باز شدن پانل لایه‌ها اقدام به انجام عملیات بر روی آن‌ها نمایید. با باز شدن این پنجره و با کلیک کردن بر روی آیکون منوی پانل گوشه سمت راست و بالای این پنجره می‌توانید با اجرای گزینه <strong>Panel Options</strong> از پنجره باز شده اندازه تصویر پیش‌نمایش را تغییر دهید. این پنجره دارای بخش <strong>Thumbnail Size</strong> است که با استفاده از آن می‌توان یکی از اندازه‌های مورد نظر را برای پیش‌نمایش لایه انتخاب کنید.</p>
+
+        <h3>اجزای پانل لایه‌ها</h3>
+        <p>همان‌طور که در پانل لایه‌ها مشاهده می‌کنید در سمت راست تصویر پیش‌نمایش اسم لایه و در سمت چپ آن آیکون چشم دیده می‌شود. آیکون چشم نمایش یا عدم نمایش یک لایه را مشخص کند. چنانچه بر روی آیکون چشم کلیک کنید یک مربع خالی ایجاد می‌شود و بدین ترتیب لایه موردنظر شما در عین حالی که وجود دارد، مخفی می‌شود. در این پانل برای افزایش و یا کاهش شفافیت لایه می‌توانید از <strong>Opacity</strong> استفاده کنید.</p>
+
+        <div class="edu-box box-table">
+            <div class="box-title">📊 جدول اجزای پانل لایه‌ها</div>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>جزء</th>
+                            <th>موقعیت</th>
+                            <th>کاربرد</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>آیکون چشم</strong></td>
+                            <td>سمت چپ نام لایه</td>
+                            <td>نمایش یا مخفی کردن لایه</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Opacity</strong></td>
+                            <td>بالای پانل</td>
+                            <td>افزایش یا کاهش شفافیت لایه</td>
+                        </tr>
+                        <tr>
+                            <td><strong>قفل‌ها (Locks)</strong></td>
+                            <td>بالای پانل</td>
+                            <td>محافظت از لایه در برابر ویرایش</td>
+                        </tr>
+                        <tr>
+                            <td><strong>لایه فعال</strong></td>
+                            <td>ردیف هایلایت‌شده</td>
+                            <td>لایه‌ای که عملیات روی آن انجام می‌شود</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Thumbnail Size</strong></td>
+                            <td>Panel Options</td>
+                            <td>تغییر اندازه پیش‌نمایش لایه</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <h3>قفل‌های لایه (Layer Locks)</h3>
+        <p>توجه داشته باشید که می‌توان لایه یا قسمتی از آن را به‌طور کامل قفل کرد. همان‌طور که در تصویر صفحه قبل مشاهده می‌کنید در بالای پانل لایه‌ها پنج قفل وجود دارد:</p>
+        <ul>
+            <li><strong>قفل اول</strong> (از سمت چپ): باعث محافظت لایه از انجام عملیات ویرایش می‌شود.</li>
+            <li><strong>قفل دوم</strong>: برعکس قفل قبلی عمل کرده و قفل قلم‌موهای شفاف لایه از ویرایش‌های تصویری فایل را از ویرایش مصون می‌بخشد.</li>
+            <li><strong>قفل سوم</strong>: به آن قفل جابجایی گفته می‌شود و مانع از جابجایی لایه قفل شده می‌گردد.</li>
+            <li>در این بخش آیکون‌هایی قرار دارد که برای قفل لایه‌های مربوط به <strong>Artboard</strong> استفاده می‌شود.</li>
+            <li><strong>آخرین قفل</strong>: که به آن <strong>Lock All</strong> می‌گوییم، تمامی قفل‌های قبلی را بر روی یک لایه اعمال می‌کند.</li>
+        </ul>
+        <p>برای قفل کردن یک لایه کافی است ابتدا لایه را انتخاب کرده و سپس بر روی قفل لایه کلیک کنید.</p>
+
+        <div class="edu-box box-note">
+            <div class="box-title">⚡ نکته طلایی</div>
+            <p>پنج قفل پانل لایه‌ها به ترتیب از چپ به راست: <strong>قفل شفافیت</strong>، <strong>قفل تصویر</strong>، <strong>قفل موقعیت</strong>، <strong>قفل Artboard</strong> و <strong>قفل همه (Lock All)</strong> هستند.</p>
+        </div>
+    </div>
+
+    <!-- ========== TAB 3: عملیات لایه‌ها ========== -->
+    <div id="tab3" class="tab-content">
+        <h2>نحوه ایجاد یک لایه جدید</h2>
+        <p>برای این منظور می‌توانید در پایین پانل لایه‌ها بر روی علامت <strong>+</strong> کلیک کنید یا از منوی <strong>Layer</strong> گزینه <strong>New Layer</strong> را اجرا کنید. در این حالت یک لایه جدید به لایه‌های قبلی اضافه می‌گردد.</p>
+
+        <h2>نحوه تغییر نام لایه</h2>
+        <p>برای تغییر نام لایه روی نام لایه موردنظر دابل کلیک کنید و نام جدید را وارد کرده و کلید <strong>Enter</strong> را بفشارید.</p>
+
+        <h2>نحوه تنظیم ترتیب لایه‌ها</h2>
+        <p>ترتیب قرارگیری لایه‌ها در پانل در شکل گرفتن تصویر نهایی تأثیر بسزایی دارد. برای تغییر محل یک لایه در پانل لایه‌ها یکی از روش‌های زیر را انتخاب کنید:</p>
+        <ul>
+            <li>در پانل لایه‌ها، لایه موردنظر را انتخاب کرده و با درگ کردن به بالا و پایین، آن را به محل موردنظر منتقل کنید.</li>
+            <li>لایه موردنظر را انتخاب کرده و با استفاده از میان‌بر <strong>Ctrl + ]</strong> به یک لایه بالاتر و با <strong>Ctrl + [</strong> به یک لایه پایین‌تر منتقل کنید.</li>
+            <li>برای انتقال لایه به بالاترین لایه از میان‌بر <strong>Ctrl+Shift+]</strong> و برای انتقال به پایین‌ترین لایه از <strong>Ctrl+Shift+[</strong> استفاده کنید.</li>
+        </ul>
+
+        <h2>نحوه حذف لایه‌ها</h2>
+        <p>برای حذف لایه‌ها، لایه موردنظر را انتخاب کرده و یکی از روش‌های زیر را انجام دهید:</p>
+        <ul>
+            <li>روی آیکون منوی پانل واقع در گوشه بالایی آن کلیک کنید، سپس از منوی ظاهر شده گزینه <strong>Layer</strong> را انتخاب کنید.</li>
+            <li>روی دکمه سطل آشغال پانل لایه‌ها کلیک کنید. (و یا لایه موردنظر را به سمت سطل آشغال پانل درگ کنید)</li>
+            <li>از منوی <strong>Layer</strong> گزینه <strong>Delete Layer</strong> را انتخاب کنید.</li>
+        </ul>
+
+        <h2>نحوه ارتباط دادن لایه‌ها</h2>
+        <p>در پانل لایه‌ها، ابتدا لایه‌هایی که قصد ارتباط دادن آن‌ها را دارید، با استفاده از <strong>Shift</strong> و کلیک انتخاب کرده، سپس با کلیک راست از منوی زمینه‌ای یا منوی پانل گزینه <strong>Link Layers</strong> را اجرا کنید. در این حالت مشاهده خواهید کرد که با جابجا کردن لایه‌های Link شده، این لایه‌ها با هم جابجا خواهند شد.</p>
+
+        <h2>نحوه نسخه‌برداری از لایه‌ها</h2>
+        <p>برای ایجاد نسخه تکراری از لایه‌ها، ابتدا لایه موردنظر را انتخاب کرده و یکی از روش‌های زیر را انتخاب کنید:</p>
+        <ul>
+            <li>منوی پانل را باز کرده سپس گزینه <strong>Duplicate Layer</strong> را انتخاب کنید.</li>
+            <li>از منوی <strong>Layer</strong> گزینه <strong>Duplicate Layer</strong> را انتخاب کنید.</li>
+            <li>لایه موردنظر را روی دکمه <strong>New Layer</strong> در پایین پانل درگ کنید.</li>
+            <li>کلید <strong>Alt</strong> را پایین نگه داشته و لایه را درگ کنید.</li>
+        </ul>
+
+        <h2>مخفی و آشکار کردن لایه‌ها</h2>
+        <p>در هنگام کار با لایه‌ها گاهی اوقات به‌دلیل تعدد لایه‌های ایجاد شده و شلوغ شدن محیط کار می‌توانیم اقدام به مخفی کردن بعضی از لایه‌ها نماییم. همان‌طور که در پانل لایه‌ها می‌بینید در کنار اسم لایه یک نماد چشم در آن دیده می‌شود که به معنای آشکار بودن لایه موردنظر است. شما می‌توانید با کلیک کردن بر روی نماد چشم با حذف این آیکون، لایه موردنظر را در حالت مخفی قرار دهید.</p>
+
+        <h2>تبدیل محدوده انتخاب به لایه</h2>
+        <p>برای تبدیل محدوده انتخاب به لایه دو راه وجود دارد:</p>
+        <ul>
+            <li>ابتدا محدوده موردنظر را انتخاب کرده و سپس از منوی <strong>Layer</strong> و زیر منوی <strong>New</strong> گزینه <strong>Layer via copy</strong> را اجرا می‌کنیم. در این روش از محدوده موردنظر در تصویر یک کپی در یک لایه جدید ایجاد می‌شود و تصویر اصلی بدون تغییر باقی می‌ماند.</li>
+            <li>ابتدا محدوده مورد نظر را انتخاب کرده و سپس از منوی <strong>Layer</strong> و زیر منوی <strong>New</strong> گزینه <strong>Layer via cut</strong> را اجرا می‌کنیم. در این روش محدوده موردنظر در تصویر برش خورده و به یک لایه جدید انتقال می‌یابد.</li>
+        </ul>
+
+        <h2>ادغام یا ترکیب لایه‌ها در Photoshop</h2>
+        <p>هرچه تعداد لایه‌های یک تصویر بیشتر باشد عملاً حجم فایل تصویری شما افزایش پیدا کرده و مقدار بسیار زیادی از فضای دیسک شما اشغال می‌گردد. در این حالت امکان کارکردن بر روی لایه‌های تصویر میسر است. این فرمت، فرمت پیش‌فرض و معمولی Photoshop یعنی <strong>PSD</strong> می‌باشد. هرچند فرمت <strong>TIF</strong> نیز مانند فایل‌های PSD امکان ذخیره فایل به صورت لایه‌ای را داراست ولی در سایر فرمت‌های تصویری، امکان کار بر روی لایه‌های مجزا تشکیل شده‌اند وجود ندارد. در این حالت برای این که بتوان از تصویر مورد نظر استفاده کرد و آن‌را با فرمت‌های دیگر ذخیره کرد حتماً لازم است لایه‌های موجود با یکدیگر ترکیب شده و به یک لایه تبدیل گردد. برای این منظور در Photoshop از دستور <strong>Flatten Image</strong> استفاده می‌کنیم. پس از ترکیب لایه‌ها با یکدیگر می‌توانید عملیات مختلفی برروی فایل اعمال کرده و آن‌را در فرمت‌های مختلف ذخیره کنید.</p>
+
+        <p>برای ادغام لایه‌ها در فتوشاپ نیز روش‌های مختلفی وجود دارد که مهم‌ترین آن‌ها عبارت‌اند از:</p>
+        <ul>
+            <li>با انتخاب لایه‌های مختلف و در ادامه با کلیک راست یا ازمنوی <strong>Layer</strong> با اجرای دستور <strong>Merge Layers</strong> امکان ادغام لایه‌های انتخاب شده در قالب یک لایه فراهم می‌شود.</li>
+            <li>با دستور <strong>Merge Down</strong> (Ctrl+E) می‌توانید لایه انتخاب شده را با لایه پایینی ادغام کنید.</li>
+            <li>با دستور <strong>Merge Visible</strong> نیز امکان ادغام لایه‌های آشکار وجود دارد.</li>
+        </ul>
+
+        <div class="edu-box box-note">
+            <div class="box-title">⚡ نکته طلایی</div>
+            <p><strong>۱.</strong> پس از انتخاب لایه‌های موردنظر، با کلیک بر روی نماد زنجیر <strong>Link Layers</strong> یا با کلیک راست و اجرای دستور Link Layers می‌توانید لایه‌های انتخاب شده را با یکدیگر مرتبط کرد. با این روش امکان جابجایی همزمان لایه‌های مرتبط شده برای کاربر فراهم می‌شود.</p>
+            <p><strong>۲.</strong> در Photoshop دستوری تحت عنوان <strong>Flatten Image</strong> وجود دارد که با استفاده از آن می‌توان عمل یکدست کردن تمامی لایه‌های آشکار را در یک لایه فشرده انجام داد. در این حالت اگر لایه مخفی وجود داشته باشد هنگام Flatten کردن حذف خواهد شد. برای این منظور کافی است از منوی <strong>Layer</strong> دستور Flatten Image را اجرا کنید.</p>
+        </div>
+
+        <h2>تغییرات در لایه Background</h2>
+        <p>برای ایجاد برخی تغییرات در لایه Background مانند جابجا کردن آن، ابتدا باید آن را به یک لایه معمولی تبدیل کرد. برای اینکار ابتدا لایه Background را انتخاب کرده و از منوی <strong>Layer</strong> و زیر منوی <strong>New</strong> گزینه <strong>Background from Layer</strong> را کلیک کنید. سپس در پنجره‌ای که باز می‌شود برای لایه نامی را انتخاب کنید و یا همان نام پیش فرض (Layer0) را انتخاب کنید.</p>
+        <p>همچنین اگر فایل شما لایه‌ای به نام Background نداشت و به آن نیاز داشتید، ابتدا لایه ای برای آن ایجاد کرده و با انتخاب منوی <strong>Layer</strong> و زیر منوی <strong>New</strong> و گزینه <strong>Background from Layer</strong> آن را به لایه Background تبدیل کنید.</p>
+
+        <h2>نحوه ویرایش غیر تخریبی لایه‌ها</h2>
+        <p>در این روش از ویرایش تصویر، به‌جای این‌که تغییرات را مستقیماً روی تصویر اعمال کنیم، از یک لایه برای اعمال تغییرات موردنظر استفاده می‌کنیم. به‌عبارت دیگر چون تغییرات در یک لایه مجزا اعمال می‌شود، امکان حذف و یا تغییر آن وجود دارد. در این صورت تصویر موردنظر همیشه بدون تغییر حفظ می‌شود. به این روش ویرایش غیر تخریبی لایه (Nondestructive Editing) گفته می‌شود.</p>
+        <p>برای این کار می‌توان از لایه‌های تنظیم رنگ، لایه‌های جلوه‌گذاری و ماسک‌های لایه استفاده کرد.</p>
+
+        <div class="edu-box box-warning">
+            <div class="box-title">⚠️ بدفهمی رایج</div>
+            <p>برخی تصور می‌کنند پس از ادغام لایه‌ها (Merge) می‌توانند دوباره لایه‌ها را از هم جدا کنند. این تصور <strong>غلط</strong> است! پس از Flatten Image یا Merge، اطلاعات لایه‌های جداگانه از بین می‌رود و فقط یک لایه واحد باقی می‌ماند. بنابراین قبل از ادغام حتماً از فایل PSD خود نسخه پشتیبان تهیه کنید.</p>
+        </div>
+    </div>
+
+    <!-- ========== TAB 4: لایه‌های تنظیم رنگ ========== -->
+    <div id="tab4" class="tab-content">
+        <h2>آشنایی با ایجاد لایه‌های تنظیم رنگ</h2>
+        <p>با استفاده از دستورات منوی <strong>Image</strong> و زیر منوی <strong>Adjustments</strong> می‌توان عمل تنظیم رنگ را بر روی لایه تصویر یا محدوده انتخاب شده به راحتی انجام داد اما از آن جایی که در هنگام تغییر و تنظیم رنگ ممکن است به‌طور ناخواسته بخش‌هایی از تصویر دارای رنگ‌های نامناسبی گردند معمولاً در این سری از موارد برای این که کنترل بیشتری بر روی عملیات وجود داشته باشد با استفاده از پانل لایه یک لایه تنظیم رنگ به وجود می‌کنند. در نتیجه در این حالت اگر عملیات تنظیم رنگ به درستی انجام شده باشد لایه‌های تنظیم رنگ را با لایه‌های اصلی تصویر ادغام کرده تا تصویر مطلوب و موردنظر حاصل گردد.</p>
+
+        <p>برای انجام این عملیات پانل لایه را باز کرده سپس از پایین پانل آیکون <strong>Create new fill or Adjustment Layer</strong> را اجرا کنید. سپس از لیست مربوط به آن، دستور تنظیم رنگ دلخواه را انتخاب کنید. در این حالت یک لایه جدید هم نام با دستور انتخابی شما در پانل لایه‌ها ایجاد شده و گزینه‌های مربوط به نمایش درمی‌آید. حال اگر تنظیمات رنگ به درستی انجام نشده باشد تصویر شما به شکل دلخواه تغییر می‌کند. با تغییر دادن گزینه‌های تنظیمی در پانل <strong>Properties</strong> می‌توان لایه ایجاد شده را حذف کرد و یا با کلیک روی آن عمل ویرایش را در پانل Properties انجام داد. اگر به‌درستی اجرا شده باشد می‌توان با ادغام لایه تنظیم رنگ با سایر لایه‌ها، تنظیمات مربوطه را بر روی تصویر اعمال کرد.</p>
+
+        <div class="edu-box box-example">
+            <div class="box-title">💡 مثال کاربردی: ایجاد لایه Hue/Saturation</div>
+            <p>برای تغییر رنگ یک تصویر بدون آسیب به لایه اصلی: پانل لایه‌ها را باز کنید ← روی آیکون <strong>Create new fill or Adjustment Layer</strong> (دایره نیمه‌سیاه/نیمه‌سفید) کلیک کنید ← گزینه <strong>Hue/Saturation</strong> را انتخاب کنید ← در پانل Properties، لغزنده Hue را تغییر دهید تا رنگ تصویر عوض شود. حالا می‌توانید این لایه را هر زمان که خواستید حذف یا غیرفعال کنید و تصویر اصلی دست‌نخورده باقی می‌ماند.</p>
+        </div>
+
+        <div class="edu-box box-table">
+            <div class="box-title">📊 جدول مقایسه‌ای: ویرایش مستقیم vs لایه تنظیم رنگ</div>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ویژگی</th>
+                            <th>ویرایش مستقیم</th>
+                            <th>لایه تنظیم رنگ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>مخرب بودن</strong></td>
+                            <td>مخرب (تغییرات دائمی)</td>
+                            <td>غیرمخرب (قابل حذف و ویرایش)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>کنترل</strong></td>
+                            <td>محدود</td>
+                            <td>بسیار بالا (قابل ویرایش مجدد)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>تأثیر بر لایه اصلی</strong></td>
+                            <td>مستقیم و دائمی</td>
+                            <td>بدون تأثیر (لایه اصلی حفظ می‌شود)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>قابلیت حذف</strong></td>
+                            <td>ندارد (باید Undo کرد)</td>
+                            <td>دارد (کافیست لایه را حذف کنید)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== TAB 5: لایه‌های متنی ========== -->
+    <div id="tab5" class="tab-content">
+        <h2>لایه‌های متنی</h2>
+        <p>یکی از انواع لایه‌های موجود در فتوشاپ لایه‌های متنی هستند. برای استفاده از متن در فتوشاپ ابتدا ابزار <strong>T</strong> را انتخاب کنید سپس در محل مورد نظر کلیک کرده و شروع به تایپ متن مورد نظر کنید تا یک متن هنری ایجاد شود. علاوه بر این چنانچه با انتخاب ابزار متن برروی صفحه درگ کنید، یک متن پاراگرافی ایجاد خواهد شد. هم‌زمان با کلیک روی صفحه یک لایه متنی در پانل لایه‌ها به‌وجود می‌آید و تا زمانی که یک لایه از نوع متن است به شما امکان ویرایش متن را می‌دهد.</p>
+
+        <p>ابزارهای ایجاد متن عبارت‌اند از:</p>
+        <ul>
+            <li><strong>Horizontal Type Tool</strong>: ابزار ایجاد و ویرایش متن به صورت افقی</li>
+            <li><strong>Vertical Type Tool</strong>: ابزار ایجاد و ویرایش متن به صورت عمودی</li>
+            <li><strong>Vertical Type Mask Tool</strong>: ابزار ماسک متنی عمودی، که با استفاده از آن می‌توان یک ناحیه انتخاب متنی ایجاد کرد.</li>
+            <li><strong>Horizontal Type Mask Tool</strong>: مانند ابزار قبلی است فقط جهت آن افقی است.</li>
+        </ul>
+
+        <p>برای ویرایش متون وارد شده ابزار متن را انتخاب کرده و روی متن موردنظر کلیک کنید تا مکان‌نما به شکل درآید سپس متن را ویرایش کنید.</p>
+
+        <p>برای تنظیمات متن مانند نوع قلم، اندازه متن، سبک، جهت نوشتن، رنگ و... می‌توانید از پانل <strong>Character</strong> و برای انجام عملیات پاراگرافی مانند ترازبندی متن از پانل <strong>Paragraph</strong> استفاده کنید.</p>
+
+        <h2>کار با پاراگراف‌ها در فتوشاپ</h2>
+        <p>پاراگراف را می‌توان مجموعه‌ای از کلمات مرتبط به‌هم دانست که در قالب یک یا چند جمله در کنار یکدیگر قرار می‌گیرند. به‌عبارت ساده‌تر زمانی‌که در هنگام تایپ متن کلید Enter را می‌زنیم و مکان‌نما به‌سطر بعد می‌رود یک پاراگراف جدید ایجاد شده است. برای ایجاد پاراگراف در فتوشاپ کافی است ابزار متن را انتخاب کرده و این بار به‌جای کلیک بر روی صفحه، با درگ کردن یک کادر مستطیلی به اندازه پاراگراف موردنظر ایجاد کنید، حال با ظاهر شدن مکان‌نما می‌توانید شروع به نوشتن متن موردنظر نمایید و یا حتی متن تایپ شده در نرم‌افزارهایی مانند Word را به داخل کادر مربوطه paste کنید. همان‌طور که مشاهده می‌کنید با رسیدن کلمات به آخر سطر، ادامه آن‌ها به سطر بعد منتقل خواهد شد.</p>
+
+        <p>برای تبدیل یک متن کاراکتری به پاراگرافی، لایه متنی را در پانل لایه‌ها انتخاب و از منوی <strong>Type</strong> دستور <strong>Convert to Paragraph Text</strong> و برعکس برای تبدیل یک متن پاراگرافی به متن کاراکتری دستور <strong>Convert to Point Text</strong> را اجرا کنید.</p>
+
+        <p>چنانچه متن قرار گرفته در کادر بیشتر از اندازه کادر باشد در گوشه سمت راست و پایین آن علامت <strong>+</strong> ظاهر می‌شود که به معنای سرریز متن می‌باشد. در این حالت می‌توان با کشیدن گوشه‌های کادر اندازه آن را افزایش داد.</p>
+        <p>اگر در هنگام کشیدن گوشه‌های کادر به جای ابزار متن از ابزار <strong>Move</strong> یا جابجایی استفاده کنید متن در سطر یا ستون تغییری نمی‌کند بلکه ستون کشیده‌تر و یا فشرده‌تر خواهد شد.</p>
+
+        <h2>آشنایی با پانل پاراگراف</h2>
+        <p>از آن‌جایی که در هنگام کار با متون پاراگرافی نیازمند تغییرات و تنظیماتی می‌باشید، می‌توانید از پانل اختصاصی پاراگراف استفاده نمایید که برای فعال کردن این پانل می‌توانید از منوی <strong>window</strong> استفاده کنید.</p>
+        <p>برای فارسی‌نویسی در نرم‌افزار فتوشاپ، به منوی پنجره <strong>Paragraph</strong> رفته سپس گزینه <strong>World-Ready Layout</strong> را انتخاب کنید.</p>
+
+        <div class="edu-box box-note">
+            <div class="box-title">⚡ نکته طلایی</div>
+            <p>برای تغییر سریع فونت یا قلم در متون مختلف کافی است ابتدا با ابزار متن، لایه متن را انتخاب کنید سپس در نوار <strong>Options</strong> روی یک فونت دلخواه کلیک کرده تا به حالت انتخاب در آید سپس با ابزارهای مکان‌نمای صفحه کلید و یا دکمه غلتکی وسط ماوس فونت را عوض کنید. مشاهده خواهید کرد که هم‌زمان با این تغییر، فونت متن نیز عوض می‌شود.</p>
+        </div>
+
+        <h2>اعوجاج دادن متن</h2>
+        <p>برای ایجاد پیچ و تاب یا اعوجاج در متن می‌توانید از گزینه <strong>Create Warped Text</strong> در نوار options استفاده کنید. با انتخاب این گزینه پنجره‌ای باز شده که در آن می‌توانید نوع اعوجاج را مشخص کنید. همان‌طور که در شکل مشاهده می‌کنید از بخش <strong>Bend</strong> می‌توان انحناء یا اعوجاج متن را در دو جهت افقی و عمودی انجام داد.</p>
+
+        <div class="edu-box box-table">
+            <div class="box-title">📊 جدول ابزارهای متن در فتوشاپ</div>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ابزار</th>
+                            <th>میان‌بر</th>
+                            <th>کاربرد</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Horizontal Type Tool</strong></td>
+                            <td>T</td>
+                            <td>ایجاد و ویرایش متن افقی</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Vertical Type Tool</strong></td>
+                            <td>T (Shift)</td>
+                            <td>ایجاد و ویرایش متن عمودی</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Vertical Type Mask Tool</strong></td>
+                            <td>T (Shift)</td>
+                            <td>ایجاد ناحیه انتخاب متنی عمودی</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Horizontal Type Mask Tool</strong></td>
+                            <td>T (Shift)</td>
+                            <td>ایجاد ناحیه انتخاب متنی افقی</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== TAB 6: جلوه‌های ویژه لایه ========== -->
+    <div id="tab6" class="tab-content">
+        <h2>جلوه‌های ویژه لایه (Layer Style)</h2>
+        <p>فتوشاپ دارای سبک یا جلوه‌های بسیار زیبا و قدرتمندی برای اعمال بر روی متن و لایه‌هاست که از مهم‌ترین آن‌ها می‌توان به جلوه‌های سایه (<strong>Drop Shadow</strong>)، ابزارهای درخشندگی (<strong>Glow</strong>)، برجستگی (<strong>Bevel</strong>)، برجسته‌سازی (<strong>Emboss</strong>)، هم‌پوشانی (<strong>Overlay</strong>) اشاره کرد. به خاطر داشته باشید که می‌توانید جلوه‌ها را علاوه بر متن بر اشیاء نیز اعمال کنید. برای استفاده از جلوه‌های ویژه لایه، ابتدا لایه موردنظر را انتخاب کرده و یکی از روش‌های زیر را اجرا کنید:</p>
+        <ul>
+            <li>در پانل لایه‌ها در قسمت خالی از نام لایه دابل کلیک کنید تا پنجره <strong>Layer Style</strong> باز شود.</li>
+            <li>در پایین پانل لایه‌ها روی آیکن <strong>Add a layer Style</strong> کلیک کنید سپس یکی از سبک‌ها یا جلوه‌های موردنظر را انتخاب کنید.</li>
+            <li>از منوی <strong>Layer</strong> گزینه <strong>Layer Style</strong> و سپس سبک یا جلوه مورد نظر را انتخاب کنید.</li>
+        </ul>
+        <p>سپس در پنجره باز شده روی سبک موردنظر در سمت چپ کلیک کرده و تنظیمات مربوط به آن را در سمت راست انجام دهید.</p>
+
+        <h2>اعمال سایه (Drop Shadow)</h2>
+        <p>اعمال سایه به متن یا تصویر به آن بعد داده و موجب می‌شود برجسته‌تر شود. سایه جلوه خاص و زیبایی برای تأکید بر روی یک شیء و جلب توجه بیشتر می‌باشد.</p>
+        <p><strong>نکات مهم در استفاده از سایه:</strong></p>
+        <ul>
+            <li>سایه را در همه‌جا استفاده نکنید! اگر از سایه در همه جای تصویر استفاده شود، همه چیز به یک نسبت به چشم می‌آید و شما مزیت استفاده از سایه را برای جلب توجه یک شیء از دست خواهید داد.</li>
+            <li>دقت کنید تمام سایه‌ها یکنواخت باشند! اگر در یک ناحیه به چند شیء سایه اعمال می‌کنید، توجه داشته باشید که تمام سایه‌ها یکسان بوده و «عمق» آن‌ها مناسب باشد، اگر سایه‌ها متفاوت و اتفاقی باشند، این تفاوت‌ها مشخص خواهد بود.</li>
+            <li>سایه را زیاد تیره نکنید! زیرا ممکن است عمق و تیرگی بیش از آنچه که قرار است جلب توجه کند به چشم بیاید. سایه‌ها را روشن و ظریف ایجاد کنید.</li>
+        </ul>
+
+        <p><strong>تنظیمات مربوط به شیوه Drop Shadow عبارت‌اند از:</strong></p>
+        <ul>
+            <li><strong>Opacity</strong>: تعیین میزان کدر بودن سایه.</li>
+            <li><strong>Angle</strong>: زاویه تابش نور.</li>
+            <li><strong>Distance</strong>: فاصله سایه.</li>
+            <li><strong>Spread</strong>: انتشار و وسعت سایه تا جسم مورد نظر.</li>
+            <li><strong>Size</strong>: اندازه سایه.</li>
+            <li><strong>Contour</strong> (در قسمت QUALITY): مشخص کردن طرح یا محیط مرئی.</li>
+            <li><strong>Noise</strong> (در قسمت QUALITY): انتشار نویز در پیکسل‌های مربوط به سایه.</li>
+        </ul>
+
+        <p>چنانچه در این کادر گزینه <strong>Preview</strong> فعال باشد تمام تغییرات را به‌طور هم‌زمان مشاهده می‌کنید.</p>
+
+        <div class="edu-box box-example">
+            <div class="box-title">💡 مثال کاربردی: ایجاد سایه روی متن</div>
+            <p><strong>مراحل:</strong></p>
+            <ol>
+                <li>یک سند جدید با پس‌زمینه سفید باز کنید و توسط ابزار تایپ متن موردنظر را با فونت دلخواهتان تایپ کنید.</li>
+                <li>از منوی <strong>Layer</strong> گزینه <strong>Layer Style</strong> قسمت <strong>Drop Shadow</strong> را انتخاب کنید تا کادر مکالمه مربوط به آن باز شود. گزینه <strong>Preview</strong> را علامت بزنید تا بتوانید در حین کار تغییرات را مشاهده کنید.</li>
+                <li>برای حالت آمیختگی (<strong>Blend Mode</strong>) یکی از حالت‌های <strong>Normal</strong>، <strong>Multiply</strong> یا <strong>Darken</strong> را انتخاب کنید. در غیر این صورت با انتخاب گزینه‌های دیگر نمی‌توانید سایه را مشاهده کنید. برای تغییر رنگ سایه بر روی نمونه رنگ در کنار منوی بازشونده <strong>Blend Mode</strong> کلیک کنید. این کادر موجب بازشدن پنجره <strong>Color Picker</strong> می‌شود.</li>
+                <li>میزان تیرگی (<strong>Opacity</strong>) و زاویه (<strong>Angle</strong>) سایه را با کلیک و کشیدن لغزنده در شکل ساعت‌وار تنظیم کنید و یا عددی در پنجره‌های مربوط وارد کنید.</li>
+                <li>فاصله سایه (<strong>Distance</strong>) را از کلمه یا شیء تنظیم کنید، اندازه (<strong>Size</strong>) را با تراساس مقدار سایه‌ای که می‌خواهید مشاهده کنید، تنظیم کنید. مقدار <strong>Spread</strong> مشخص می‌کند تا چه حد لبه‌های سایه مشخص باشند. بعد از انجام تنظیمات مورد نظر دکمه <strong>OK</strong> را کلیک کنید. البته هنوز هم می‌توانید آن را اصلاح کنید تا قبل از ادغام لایه‌ها می‌توانید هر تغییری را اعمال کنید.</li>
+            </ol>
+        </div>
+
+        <p>علاوه بر <strong>Drop Shadow</strong> یا سایه گزینه دیگری با نام <strong>Inner Shadow</strong> یا سایه داخلی نیز وجود دارد که سایه را به طرف داخل ایجاد می‌کند.</p>
+
+        <h2>ایجاد درخشندگی (Glow)</h2>
+        <p>علاوه بر سایه (Drop Shadow) در این منو، جلوه‌های جالب دیگری نیز موجود می‌باشند. حال به بررسی جلوه درخشندگی (<strong>Glow</strong>) می‌پردازیم.</p>
+        <p>می‌توانید درخشندگی را از داخل (<strong>Inner Glow</strong>) اعمال کنید که به‌نظر می‌رسد، حروف خودشان می‌درخشند. این جلوه برای تأکید بر روی بخشی از متن یا جدا کردن آن از پس‌زمینه شلوغ مناسب است. جلوه (<strong>Outer Glow</strong>) بیشتر برای مشخص کردن چیزی در پس زمینه و در جاهایی که استفاده از سایه مناسب نیست، کاربرد دارد. سایر اشیاء نیز می‌توانند درخشندگی داشته باشند.</p>
+
+        <h2>جلوه‌های برجستگی و برجسته‌سازی (Bevel and Emboss)</h2>
+        <p>این دو ابزار نیز در قسمت <strong>Layer Style</strong> قرار دارند و هر دوی آن‌ها متن را برجسته می‌کنند. جلوه <strong>Bevel</strong> ظاهر حروف را گرد یا انحناوار می‌سازد، اما سطح حروف صاف هستند. درحالی که جلوه <strong>Emboss</strong> آن‌ها را برجسته می‌سازد.</p>
+
+        <h2>جلوه زرق و برق (Satin)</h2>
+        <p>با استفاده از گزینه <strong>Satin</strong> می‌توانید جلوه زرق و برق به‌وجود آورید. این جلوه مانند یک روکش طلایی است.</p>
+
+        <h2>جلوه‌های پوشش با رنگ، شیب رنگ و یا الگو</h2>
+        <p>با استفاده از گزینه <strong>Color Overlay</strong> می‌توانید موضوع موردنظر را با یک رنگ و با استفاده از <strong>Gradient Overlay</strong> با یک الگو پر کنید. در هرکدام از این حالت‌ها می‌توانید مقدار شفافیت را با استفاده از <strong>Opacity</strong> تنظیم کنید. با استفاده از <strong>Pattern Overlay</strong> نیز می‌توانید موضوع را با یک الگو پر کنید.</p>
+
+        <h2>اعمال دور خط (Stroke)</h2>
+        <p>با استفاده از گزینه <strong>Stroke</strong> می‌توانید به‌موضوع موردنظر دور خط با یک رنگ و پهنای دلخواه اعمال کنید تا موضوع شما در تصویر مشخص‌تر باشد و از زمینه‌اش جدا شود.</p>
+
+        <h2>ایجاد سبک یا Style</h2>
+        <p>شما می‌توانید در فتوشاپ مجموعه‌ای از یک یا چند جلوه ویژه را برای یک لایه ایجاد کرده و آن را تحت یک نام ذخیره کنید تا بتوانید مجدداً از آن استفاده کنید. به این مجموعه‌ها سبک یا شیوه یا <strong>Style</strong> گفته می‌شود. پس از این‌که جلوه‌های موردنظر را اعمال کردید می‌توانید با استفاده از دکمه <strong>New Style</strong> در پنجره Layer Style آن‌ها را تحت یک نام ذخیره کنید.</p>
+        <p>برای استفاده از سبک‌های پیش‌فرض و آماده فتوشاپ می‌توانید از پانل <strong>Styles</strong> استفاده کنید. فقط کافی است لایه مورد نظر را فعال کرده و روی سبک مورد نظر در پانل Styles کلیک کنید.</p>
+
+        <p>پس از اعمال افکت به یک لایه می‌توانید از منوی <strong>Layer</strong> و یا با کلیک راست روی لایه و انتخاب گزینه <strong>Copy Layer Style</strong> افکت لایه را کپی کرده و با استفاده از <strong>Paste Layer Style</strong> روی لایه‌های دیگری اعمال کنید و یا با استفاده از <strong>Clear Layer Style</strong> افکت لایه مورد نظر را حذف کنید.</p>
+
+        <div class="edu-box box-warning">
+            <div class="box-title">⚠️ بدفهمی رایج</div>
+            <p>برخی تصور می‌کنند جلوه‌های لایه (Layer Style) فقط برای متن کاربرد دارند. این تصور <strong>غلط</strong> است! جلوه‌های لایه را می‌توان روی هر نوع لایه (تصویر، شکل، متن و...) اعمال کرد. فقط کافی است لایه موردنظر را انتخاب کنید.</p>
+        </div>
+
+        <div class="edu-box box-table">
+            <div class="box-title">📊 جدول جلوه‌های ویژه لایه</div>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>جلوه</th>
+                            <th>نام انگلیسی</th>
+                            <th>کاربرد اصلی</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>سایه بیرونی</td>
+                            <td>Drop Shadow</td>
+                            <td>ایجاد بعد و برجستگی برای شیء</td>
+                        </tr>
+                        <tr>
+                            <td>سایه داخلی</td>
+                            <td>Inner Shadow</td>
+                            <td>ایجاد سایه به سمت داخل</td>
+                        </tr>
+                        <tr>
+                            <td>درخشندگی داخلی</td>
+                            <td>Inner Glow</td>
+                            <td>تأکید بر بخشی از متن</td>
+                        </tr>
+                        <tr>
+                            <td>درخشندگی بیرونی</td>
+                            <td>Outer Glow</td>
+                            <td>مشخص کردن شیء در پس‌زمینه</td>
+                        </tr>
+                        <tr>
+                            <td>برجستگی</td>
+                            <td>Bevel and Emboss</td>
+                            <td>ایجاد ظاهر سه‌بعدی و برجسته</td>
+                        </tr>
+                        <tr>
+                            <td>زرق و برق</td>
+                            <td>Satin</td>
+                            <td>ایجاد جلوه روکش طلایی</td>
+                        </tr>
+                        <tr>
+                            <td>پوشش رنگی</td>
+                            <td>Color Overlay</td>
+                            <td>پر کردن با رنگ</td>
+                        </tr>
+                        <tr>
+                            <td>پوشش شیب رنگ</td>
+                            <td>Gradient Overlay</td>
+                            <td>پر کردن با شیب رنگ</td>
+                        </tr>
+                        <tr>
+                            <td>پوشش الگو</td>
+                            <td>Pattern Overlay</td>
+                            <td>پر کردن با الگو</td>
+                        </tr>
+                        <tr>
+                            <td>دور خط</td>
+                            <td>Stroke</td>
+                            <td>ایجاد حاشیه رنگی دور شیء</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== TAB 7: کارگاه پوستر ========== -->
+    <div id="tab7" class="tab-content">
+        <h2>کارگاه پوستر</h2>
+        <p>یک رسانه بصری که در حالت معمول فاقد تاخوردگی بوده و از آن برای ارائه یک پیام فرهنگی، سیاسی، تجاری و... استفاده می‌شود به پوستر و در آلمانی پلاکات و در روسی پلاکارد و بالاخره در زبان فرانسه آفیش گفته می‌شود. اندازه پوسترها براساس قطع‌های کاغذ موجود در یک کشور و براساس مضربی از آن‌ها ایجاد می‌شوند.</p>
+
+        <p>در ایران از آن‌جایی که کاغذهای موجود در بازار در دو قطع <strong>۷۰ × ۱۰۰</strong> سانتی‌متر (معروف به چهار و نیم برگی) و <strong>۶۰ × ۹۰</strong> سانتی‌متر (معروف به سه برگی) در بازار وجود دارند پوسترها عمدتاً در سه قطع استاندارد زیر تهیه می‌شوند:</p>
+        <ul>
+            <li>الف) <strong>۳۵ × ۵۰</strong> متر</li>
+            <li>ب) <strong>۵۰ × ۷۰</strong> متر</li>
+            <li>ج) <strong>۷۰ × ۱۰۰</strong> متر</li>
+        </ul>
+
+        <p>همان‌طور که می‌دانید یکی از اندازه کاغذهایی که در چاپخانه‌ها مورد استفاده قرار می‌گیرد اندازه <strong>B1</strong> است. طبیعی است اگر شما از قطع <strong>۷۰ × ۱۰۰</strong> همان‌های استاندارد پوستر که همگی دارای نسبت <strong>۵ به ۷</strong> هستند استفاده کنید کمترین دور ریز از کاغذ اصلی به‌وجود آمده و در هزینه‌های اقتصادی پوستر صرفه‌جویی می‌شود. البته در تعداد کم می‌توان از ابعادی غیر از نسبت‌های استاندارد پوستر نیز استفاده کرد.</p>
+
+        <h2>ساختار کلی یک پوستر</h2>
+        <p>به‌طورکلی برای ایجاد یک چیدمان مناسب و حرفه‌ای در یک پوستر لازم است آشنایی کلی با ساختار اصلی یک پوستر داشته باشیم. برای این منظور مراحل زیر را دنبال می‌کنیم:</p>
+        <p>به اندازه پهنای پوستر از بالا به پایین و از پایین به بالا بر روی ارتفاع جدا می‌کنیم. در این حالت کادر پوستر ما به سه بخش شامل دو مستطیل و دو مربع تقسیم‌بندی می‌شود.</p>
+
+        <p>به مستطیل‌های ایجاد شده اصطلاحاً <strong>مستطیل رهنمون‌گر</strong> و به مربع‌های ایجاد شده عنوان <strong>مربع شاخص</strong> را می‌دهیم.</p>
+
+        <p>معمولاً از مستطیل‌های رهنمون‌گر برای قرار دادن عنوان یک پوستر استفاده می‌شود. هرچند امروزه در پوسترهای معاصر، این اصل یا قانون نیز بیشتر اوقات رعایت نمی‌شود و گرافیست‌ها گاهی اوقات ممکن است متن را با المان‌های تصویری چفت و بست نماید.</p>
+
+        <p>از آن‌جایی که مربع شاخص بخش اعظم یک پوستر را به‌لحاظ فضا در اختیار گرافیست قرار می‌دهد معمولاً میدان مانور ترکیب‌بندی‌های مختلف گرافیست به‌شمار می‌آید. به‌طوری‌که گرافیست با توجه به موضوع و فضای کاری از ترکیب‌بندی‌های مختلف برای چیدن المان‌های تصویری و متنی استفاده می‌کند. به‌عنوان مثال فرض کنید می‌خواهیم در یک پوستر با عنوان اعتیاد از فضای موجود در مربع شاخص برای ترکیب‌بندی استفاده کنیم. بدیهی است در این بخش می‌توان از یک ترکیب‌بندی نامتعادل و غیرایستا مانند یک مثلث فرضی که با خط افق زاویه پیدا کرده است استفاده کرد. به‌طوری‌که در این ترکیب‌بندی تمامی المان‌های تصویری و متنی دارای چیدمان ناپایدار می‌باشند.</p>
+
+        <div class="edu-box box-note">
+            <div class="box-title">⚡ نکته طلایی: لب پنجه</div>
+            <p>در طراحی پوستر یک سانتی‌متر از دور تا دور کادر را اضافی یا دور ریخته فرض کنید و المان‌های تصویری یا نوشتاری خود را با توجه به این بخش در داخل کادر تنظیم نمایید. در چاپ به این بخش یک سانتی‌متری دور تا دور پوستر که جزء سطح مؤثر پوستر به حساب نمی‌آید و به‌عنوان دورریز یا اضافی کادر محسوب می‌شود اصطلاحاً <strong>لب پنجه</strong> می‌گویند.</p>
+        </div>
+
+        <h2>اصول کاربردی در طراحی پوستر</h2>
+        <p>پوسترها نیز مانند سایر آثار گرافیکی و رسانه‌های بصری دو عامل <strong>فرم</strong> و <strong>رنگ</strong> دارند که از عوامل اصلی مؤثر در ساخت و ایجاد آن‌ها به‌حساب می‌آیند. گرافیست باید در استفاده مناسب از این دو عامل اصلی اطلاعات و تسلط کافی داشته باشد. اگرچه بسیاری از پوسترها که امروزه توسط افراد غیرتخصصی طراحی می‌شوند از اصول و ساختار خاصی تبعیت نمی‌کنند ولی باید بدانید در طراحی یک پوستر حرفه‌ای که توسط یک فرد تحصیل‌کرده و تخصصی ایجاد می‌گردد معمولاً اصول بسیار زیادی مورد توجه قرار می‌گیرد. که ما در زیر شما را با تعدادی از این اصول و نکات کاربردی آشنا می‌کنیم:</p>
+
+        <ul>
+            <li>هر پوستر متناسب با موضوع، تصاویر به کار رفته در آن و محل نصب، می‌تواند به صورت عمودی یا افقی طراحی گردد. معمولاً کادرهای عمودی از تمرکز بیشتری برخوردار هستند.</li>
+            <li>البته محل نصب پوستر نیز در طراحی عمودی یا افقی آن تأثیرگذار می‌باشد. به عنوان مثال در ایستگاه مترو معمولاً از کادرهای افقی که به موازات خط حرکت قطار (افق) ایجاد شده‌اند، استفاده می‌شود. دلیل این امر آن است که بیننده (مسافر مترو) درحال حرکت با مترو میدان دید بیشتری برای مشاهده پوستر داشته باشد. پس در حالت‌هایی که بیننده ثابت و پوستر متحرک است مانند تبلیغات روی اتوبوس‌ها و در حالتی که بیننده متحرک و پوستر ثابت می‌باشد مانند مثال مترو لازم است پوستر به صورت افقی طراحی گردد.</li>
+        </ul>
+
+        <div class="question-box">
+            <span class="q-icon">❓</span>
+            <div class="q-title">سؤال</div>
+            <p>به نظر شما عامل یا عوامل دیگری نیز وجود دارد که بتوان براساس آن یک پوستر افقی طراحی کرد؟</p>
+        </div>
+
+        <ul>
+            <li>در یک پوستر باید از شلوغ کردن کادر و پرشماری عناصر بصری اعم از تصویر و متن پرهیز کرد از آن جایی که پوسترها و عوامل بصری موجود در آن‌ها در زمانی حدود ده ثانیه در معرض دید بیننده قرار می‌گیرند لازم است تصاویر و نوشته‌ها کاملاً مشخص و واضح به بیننده ارائه شوند. ضمن این‌که به‌گونه‌ای طراحی شوند که از فاصله <strong>۳ تا ۴</strong> متری قابل تشخیص باشند.</li>
+            <li>ترکیب‌بندی رنگ و عناصر بصری پوستر باید متناسب و هماهنگ با موضوع باشد. به عنوان مثال در پوستر با موضوع مذهبی معمولاً از فرم‌های دوار و رنگ‌های سبز و آبی استفاده می‌شود که بیشتر تداعی‌کننده معنویت و روحانیت است.</li>
+            <li>از عواملی که می‌تواند در یک پوستر باعث جلب توجه بیشتر گردد ایجاد ریتم‌های بصری مختلف با استفاده از اصل کنتراست یا تضاد است.</li>
+            <li>معمولاً در یک پوستر، متن با یکی از المان‌های تصویری ترازبندی می‌شود. به‌عبارت ساده‌تر در یک پوستر جای نوشته را باید به‌صورتی مشخص کرد که بین نوشته و تصویر یک ارتباط و چفت و بستی وجود داشته باشد. در این حالت اصطلاحاً می‌گویند نوشته به تصویر اشاره می‌کند و تصویر به نوشته. پس با این توضیح (با نگاهی به پوسترهای معاصر درمی‌یابید که امروزه در یک پوستر جای مشخصی (مانند مستطیل رهنمون‌گر) برای قرار دادن نوشته وجود ندارد. این تفکر و خلاقیت طراح است که می‌تواند جایگاه المان‌های تصویری و نوشتاری را در یک پوستر تعیین نماید.</li>
+        </ul>
+
+        <p>تمامی اصولی که در بالا گفته شد اگرچه ممکن است در بسیاری از پوسترها به جشم بخورند، اما خلاقیت و نوآوری در کار یک گرافیست تنها اصلی است که می‌تواند به کار فرد شخصیت داده و کار او را از سایرین متمایز نماید.</p>
+
+        <div class="edu-box box-table">
+            <div class="box-title">📊 جدول ابعاد استاندارد پوستر در ایران</div>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>قطع</th>
+                            <th>ابعاد (سانتی‌متر)</th>
+                            <th>نام رایج</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>الف</td>
+                            <td>۳۵ × ۵۰</td>
+                            <td>—</td>
+                        </tr>
+                        <tr>
+                            <td>ب</td>
+                            <td>۵۰ × ۷۰</td>
+                            <td>—</td>
+                        </tr>
+                        <tr>
+                            <td>ج</td>
+                            <td>۷۰ × ۱۰۰</td>
+                            <td>چهار و نیم برگی</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== TAB 8: خودآزمایی و پرسش‌ها ========== -->
+    <div id="tab8" class="tab-content">
+        <h2>خودآزمایی</h2>
+        <ol>
+            <li>مفهوم لایه را در فتوشاپ توضیح دهید.</li>
+            <li>روش‌های مختلف مخفی و آشکار کردن لایه‌ها را نام ببرید.</li>
+            <li>چگونه می‌توان ترتیب لایه‌ها را در پانل لایه‌ها تغییر داد؟</li>
+            <li>روش‌های حذف یک لایه را توضیح دهید.</li>
+            <li>چگونه می‌توان یک لایه را با لایه دیگر مرتبط کرد؟</li>
+            <li>روش‌های نسخه‌برداری از لایه‌ها را نام ببرید.</li>
+            <li>تفاوت Layer via Copy و Layer via Cut چیست؟</li>
+            <li>دستور Flatten Image چه کاری انجام می‌دهد؟</li>
+            <li>روش‌های ادغام لایه‌ها را نام ببرید.</li>
+            <li>ویرایش غیر تخریبی لایه‌ها را توضیح دهید.</li>
+            <li>چگونه می‌توان یک لایه تنظیم رنگ ایجاد کرد؟</li>
+            <li>ابزارهای ایجاد متن در فتوشاپ را نام ببرید.</li>
+            <li>تفاوت متن هنری و متن پاراگرافی چیست؟</li>
+            <li>چگونه می‌توان یک متن کاراکتری را به پاراگرافی تبدیل کرد؟</li>
+            <li>جلوه‌های ویژه لایه (Layer Style) را نام ببرید.</li>
+            <li>تنظیمات مهم در جلوه Drop Shadow را توضیح دهید.</li>
+            <li>ساختار کلی یک پوستر را توضیح دهید.</li>
+            <li>مستطیل رهنمون‌گر و مربع شاخص چیست؟</li>
+            <li>اصول کاربردی در طراحی پوستر را نام ببرید.</li>
+        </ol>
+
+        <h2>پرسش‌های چهارگزینه‌ای</h2>
+
+        <div class="edu-box box-warning">
+            <div class="box-title">⚠️ سؤال ۱</div>
+            <p>توسط کدام ابزار می‌توان یک متن را به تصویر اضافه کرد؟</p>
+            <p>الف) Line Tool<br>
+            ب) Type Tool<br>
+            ج) Pen Tool<br>
+            د) Hand Tool</p>
+            <p><strong>پاسخ: ب</strong> — ابزار Type Tool (T) برای ایجاد و ویرایش متن استفاده می‌شود.</p>
+        </div>
+
+        <div class="edu-box box-warning">
+            <div class="box-title">⚠️ سؤال ۲</div>
+            <p>دستور Flatten Image در منوی Layer چه کاری انجام می‌دهد؟</p>
+            <p>الف) لایه فعال را با لایه زیرین ادغام می‌کند.<br>
+            ب) لایه فعال را با لایه روی آن ادغام می‌کند.<br>
+            ج) تمام لایه‌ها را به‌صورت یک لایه Background در می‌آورد.<br>
+            د) فقط لایه‌هایی که دیده می‌شوند را با هم ادغام می‌کند.</p>
+            <p><strong>پاسخ: ج</strong> — Flatten Image تمام لایه‌های آشکار را در یک لایه Background فشرده می‌کند.</p>
+        </div>
+
+        <div class="edu-box box-warning">
+            <div class="box-title">⚠️ سؤال ۳</div>
+            <p>وجود قلم‌موی نقاشی در کنار لایه نشانه چیست؟</p>
+            <p>الف) اتصال لایه<br>
+            ب) گروه شدن لایه<br>
+            ج) فعال بودن لایه<br>
+            د) ادغام لایه</p>
+            <p><strong>پاسخ: ج</strong> — قلم‌مو در کنار لایه نشان‌دهنده فعال بودن لایه است.</p>
+        </div>
+
+        <div class="edu-box box-warning">
+            <div class="box-title">⚠️ سؤال ۴</div>
+            <p>برای این که جلوه‌های یک لایه را بر روی لایه دیگر کپی نماییم از کدام گزینه استفاده می‌کنیم؟</p>
+            <p>الف) انتخاب Layer Via Copy از منوی Layer / New<br>
+            ب) از منوی Layer / Layer Style گزینه Layer Style را انتخاب کرده و سپس در لایه مزبور Paste را از منوی Edit انتخاب می‌کنیم<br>
+            ج) از منوی Layer / Layer Style گزینه Layer Style را انتخاب کرده و سپس در لایه مزبور Paste Layer Style را از همین منو انتخاب می‌کنیم<br>
+            د) انتخاب Layer / New از منوی Layer Via Cut</p>
+            <p><strong>پاسخ: ج</strong> — برای کپی جلوه‌های لایه، از Copy Layer Style و Paste Layer Style استفاده می‌شود.</p>
+        </div>
+
+        <div class="edu-box box-warning">
+            <div class="box-title">⚠️ سؤال ۵</div>
+            <p>با اجرای کدام‌یک از دستورات زیر لایه بالایی با لایه زیرین در یک لایه ادغام می‌شود؟</p>
+            <p>الف) Merge Down<br>
+            ب) Merge Linked<br>
+            ج) Delete Layer<br>
+            د) Flatten Image</p>
+            <p><strong>پاسخ: الف</strong> — دستور Merge Down لایه فعال را با لایه زیرین ادغام می‌کند.</p>
+        </div>
+    </div>
+
+</div>
+
+<!-- ===== FOOTER ===== -->
+<div class="footer">
+    تولید کننده محتوای الکترونیک: واحد کار ۷ | مدرس: دکتر مریم هوتی‌نژاد
+</div>
+
+<!-- ===== JAVASCRIPT ===== -->
+<script>
+    function openTab(evt, tabId) {
+        var tabContents = document.getElementsByClassName("tab-content");
+        for (var i = 0; i < tabContents.length; i++) {
+            tabContents[i].classList.remove("active");
+        }
+
+        var tabBtns = document.getElementsByClassName("tab-btn");
+        for (var i = 0; i < tabBtns.length; i++) {
+            tabBtns[i].classList.remove("active");
+        }
+
+        document.getElementById(tabId).classList.add("active");
+        evt.currentTarget.classList.add("active");
+    }
+</script>
+
+</body>
+</html>
