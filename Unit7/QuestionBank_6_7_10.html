@@ -1,0 +1,1341 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>بانک سوالات استاندارد و آزمون جامع | واحدهای کار ۶، ۷ و ۱۰</title>
+<style>
+:root {
+  --p: #102a43;
+  --s: #1f4e78;
+  --a: #0097a7;
+  --a-light: #e0f7fa;
+  --bg: #f4f7f9;
+  --card: #ffffff;
+  --txt: #1e293b;
+  --muted: #64748b;
+  --ok: #1b5e20;
+  --okbg: #e8f5e9;
+  --info: #0d47a1;
+  --infobg: #e3f2fd;
+  --warn: #e65100;
+  --warnbg: #fff3e0;
+  --bad: #b71c1c;
+  --badbg: #ffebee;
+  --grad: linear-gradient(135deg, #0f2942 0%, #1d4e7a 55%, #00838f 100%);
+  --shadow: 0 6px 20px rgba(15, 41, 66, 0.08);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: Tahoma, 'Vazirmatn', Arial, sans-serif;
+  background: var(--bg);
+  color: var(--txt);
+  line-height: 1.9;
+  padding-bottom: 50px;
+}
+.header {
+  background: var(--grad);
+  color: #fff;
+  text-align: center;
+  padding: 28px 16px 24px;
+  border-radius: 0 0 24px 24px;
+  box-shadow: var(--shadow);
+}
+.teacher-box {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(6px);
+  border: 1.5px solid rgba(255, 255, 255, 0.55);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+  padding: 8px 22px;
+  border-radius: 14px;
+  margin-bottom: 14px;
+  font-weight: bold;
+  font-size: 0.95rem;
+}
+.header h1 { font-size: 1.65rem; margin-bottom: 4px; }
+.subtitle { opacity: 0.92; font-size: 0.92rem; }
+.tabs {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+.tab {
+  border: 2px solid rgba(255,255,255,0.25);
+  background: rgba(255,255,255,0.14);
+  color: #fff;
+  border-radius: 12px;
+  padding: 9px 16px;
+  font: bold 0.88rem Tahoma, sans-serif;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.tab:hover { background: rgba(255,255,255,0.26); }
+.tab.active {
+  background: #fff;
+  color: var(--p);
+  border-color: #fff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+.tab.quiz-tab {
+  background: linear-gradient(135deg, #f57c00, #ff9800);
+  border-color: #ffe0b2;
+  color: #fff;
+}
+.tab.quiz-tab.active {
+  background: #fff;
+  color: #e65100;
+  border-color: #ff9800;
+}
+.voice-bar {
+  max-width: 1100px;
+  margin: 18px auto 0;
+  background: var(--card);
+  border: 1px solid #dce6f1;
+  border-radius: 14px;
+  padding: 12px 16px;
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  box-shadow: var(--shadow);
+}
+.voice-bar label { font-weight: bold; color: var(--p); font-size: 0.84rem; display: flex; align-items: center; gap: 6px; }
+.voice-bar select, .voice-bar input { font: inherit; }
+.voice-bar select { padding: 5px 10px; border: 1px solid #cbd5e1; border-radius: 8px; background: #f8fafc; color: var(--p); font-weight: bold; }
+.voice-bar button {
+  background: var(--grad);
+  color: #fff;
+  border: 0;
+  border-radius: 20px;
+  padding: 7px 15px;
+  font-weight: bold;
+  font-size: 0.83rem;
+  cursor: pointer;
+}
+.wrap { max-width: 1100px; margin: auto; padding: 18px; }
+h2 {
+  color: var(--p);
+  border-bottom: 3px solid var(--a);
+  padding-bottom: 8px;
+  margin: 12px 0 14px;
+  font-size: 1.3rem;
+}
+.intro { text-align: center; color: var(--muted); font-size: 0.9rem; margin-bottom: 14px; }
+.stats, .filters {
+  display: flex;
+  gap: 9px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 14px 0;
+}
+.stat {
+  background: var(--card);
+  padding: 7px 14px;
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+  font-size: 0.86rem;
+  border: 1px solid #e2e8f0;
+}
+.stat b { color: var(--p); font-size: 1.05rem; }
+.search { display: flex; gap: 8px; margin: 14px 0; }
+.search input {
+  flex: 1;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font: inherit;
+  font-size: 0.9rem;
+  background: #fff;
+}
+.filter {
+  border: 1px solid #cbd5e1;
+  background: #fff;
+  color: var(--p);
+  border-radius: 20px;
+  padding: 7px 14px;
+  font-weight: bold;
+  font-size: 0.84rem;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.filter.active { background: var(--p); color: #fff; border-color: var(--p); }
+.card {
+  background: var(--card);
+  border-radius: 14px;
+  padding: 18px;
+  margin: 14px 0;
+  box-shadow: var(--shadow);
+  border-right: 6px solid var(--s);
+  cursor: pointer;
+}
+.card.open { border-right-color: var(--ok); }
+.qhead { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 10px; }
+.num {
+  background: var(--grad);
+  color: #fff;
+  border-radius: 20px;
+  padding: 3px 12px;
+  font-size: 0.82rem;
+  font-weight: bold;
+}
+.kind { border-radius: 18px; padding: 3px 11px; font-size: 0.78rem; font-weight: bold; }
+.mc { background: var(--infobg); color: var(--info); }
+.tf { background: #ede7f6; color: #4527a0; }
+.fill { background: var(--warnbg); color: var(--warn); }
+.desc { background: var(--okbg); color: var(--ok); }
+.practical { background: var(--badbg); color: var(--bad); }
+.qtext { font-weight: bold; font-size: 0.96rem; color: #0f172a; }
+.options { list-style: none; padding: 0; margin: 10px 0; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.options li {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 7px 12px;
+  font-size: 0.9rem;
+}
+.hint { text-align: left; color: var(--a); font-size: 0.82rem; font-weight: bold; margin-top: 8px; cursor: pointer; }
+.answer {
+  display: none;
+  background: var(--okbg);
+  border-right: 4px solid var(--ok);
+  border-radius: 10px;
+  padding: 12px 15px;
+  margin-top: 12px;
+  font-size: 0.91rem;
+  white-space: pre-line;
+}
+.card.open .answer { display: block; }
+.answer strong { color: var(--ok); display: block; margin-bottom: 4px; }
+details { border-top: 1px dashed #cbd5e1; margin-top: 12px; padding-top: 8px; font-size: 0.84rem; color: var(--muted); }
+summary { cursor: pointer; color: var(--info); font-weight: bold; }
+details p { margin-top: 6px; }
+.en {
+  direction: ltr;
+  display: inline-block;
+  color: var(--p);
+  background: rgba(0, 151, 167, 0.1);
+  border-bottom: 1.5px dashed var(--a);
+  padding: 0 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  font-family: Arial, sans-serif;
+}
+.en.speaking { background: rgba(0, 151, 167, 0.35); }
+.empty { background: #fff; text-align: center; padding: 28px; border-radius: 12px; color: var(--muted); }
+
+/* Quiz Section Styles */
+.quiz-box {
+  background: #fff;
+  border-radius: 16px;
+  padding: 22px;
+  box-shadow: var(--shadow);
+  border-top: 5px solid #f57c00;
+}
+.quiz-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  background: #fff8e1;
+  border: 1px solid #ffe082;
+  padding: 14px 18px;
+  border-radius: 12px;
+  margin-bottom: 18px;
+}
+.quiz-btn {
+  background: linear-gradient(135deg, #e65100, #f57c00);
+  color: #fff;
+  border: 0;
+  border-radius: 10px;
+  padding: 10px 20px;
+  font: bold 0.92rem Tahoma, sans-serif;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(230, 81, 0, 0.25);
+}
+.quiz-btn.secondary {
+  background: var(--grad);
+  box-shadow: 0 4px 10px rgba(15, 41, 66, 0.2);
+}
+.quiz-q {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 14px;
+  background: #fcfdfe;
+}
+.quiz-q.correct-card { border: 2px solid #2e7d32; background: #f1f8e9; }
+.quiz-q.wrong-card { border: 2px solid #c62828; background: #ffebee; }
+.quiz-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+.quiz-opts { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; }
+.quiz-opt-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 9px;
+  padding: 9px 12px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: 0.15s;
+}
+.quiz-opt-label:hover { border-color: var(--a); background: #f0f9ff; }
+.quiz-opt-label input { accent-color: var(--p); width: 16px; height: 16px; }
+.quiz-opt-label.opt-right { background: #c8e6c9; border-color: #2e7d32; font-weight: bold; }
+.quiz-opt-label.opt-wrong { background: #ffcdd2; border-color: #c62828; }
+.quiz-feedback {
+  margin-top: 10px;
+  font-size: 0.86rem;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: #fff;
+  border-right: 4px solid var(--info);
+}
+.score-board {
+  background: linear-gradient(135deg, #0f2942, #1d4e7a);
+  color: #fff;
+  border-radius: 16px;
+  padding: 22px;
+  text-align: center;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow);
+}
+.score-board h3 { font-size: 1.4rem; margin-bottom: 8px; color: #ffd54f; }
+.score-grid {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+}
+.score-item {
+  background: rgba(255,255,255,0.14);
+  padding: 10px 18px;
+  border-radius: 12px;
+  min-width: 130px;
+}
+.score-item span { display: block; font-size: 0.8rem; opacity: 0.9; }
+.score-item strong { font-size: 1.3rem; color: #fff; }
+
+.footer {
+  text-align: center;
+  color: #334155;
+  background: #fff;
+  border-top: 2px solid #cbd5e1;
+  margin-top: 40px;
+  padding: 20px 16px;
+  font-size: 0.88rem;
+  line-height: 2;
+}
+.footer-teacher {
+  display: inline-block;
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  color: var(--p);
+  font-weight: bold;
+  padding: 4px 16px;
+  border-radius: 10px;
+  margin-bottom: 6px;
+}
+@media (max-width: 720px) {
+  .options, .quiz-opts { grid-template-columns: 1fr; }
+  .header h1 { font-size: 1.3rem; }
+  .tabs { display: grid; grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="teacher-box">مدرس: خانم دکتر مریم هوتی نژاد، هنرستان ایثارگران بانک ملت</div>
+  <h1>بانک سوالات استاندارد و سامانه آزمون جامع</h1>
+  <div class="subtitle">تولید محتوای الکترونیکی و استانداردسازی | واحدهای کار ۶، ۷ و ۱۰</div>
+  <nav class="tabs">
+    <button class="tab active" onclick="switchTab('6', this)">واحد کار ۶: دریافت تصاویر (۲۵ سؤال)</button>
+    <button class="tab" onclick="switchTab('7', this)">واحد کار ۷: لایه‌ها (۲۵ سؤال)</button>
+    <button class="tab" onclick="switchTab('10', this)">واحد کار ۱۰: ویرایش تصاویر (۲۵ سؤال)</button>
+    <button class="tab quiz-tab" onclick="switchTab('quiz', this)">آزمون جامع تصادفی (۳۰ سؤال)</button>
+  </nav>
+</header>
+
+<section class="voice-bar">
+  <label>نوع صدای گوینده:
+    <select id="genderSelect" onchange="onGenderChange()">
+      <option value="female">صدای خانم (Female)</option>
+      <option value="male">صدای آقا (Male)</option>
+    </select>
+  </label>
+  <label>موتور گوینده انگلیسی:
+    <select id="voice"><option value="auto">خودکار مطابق جنسیت</option></select>
+  </label>
+  <label>سرعت:
+    <input id="rate" type="range" min="0.5" max="1.4" step="0.1" value="0.8">
+    <span id="rateVal">0.80×</span>
+  </label>
+  <button onclick="testVoice()">تست تلفظ اصطلاحات</button>
+</section>
+
+<main class="wrap">
+  <div id="bank-view">
+    <h2 id="heading">واحد کار ششم: دریافت تصاویر (۲۵ سؤال استاندارد)</h2>
+    <p class="intro">تمامی سؤالات بر اساس اصول سنجش و ارزشیابی استاندارد آموزش و پرورش طراحی شده‌اند. روی هر کارت کلیک کنید تا پاسخ تشریحی و آدرس دقیق کتاب نمایش داده شود.</p>
+    <div class="search"><input id="query" placeholder="جست‌وجو در متن سؤال، گزینه‌ها یا پاسخ..." oninput="renderBank()"></div>
+    <div class="filters" id="filters"></div>
+    <div id="list"></div>
+  </div>
+
+  <div id="quiz-view" style="display:none;">
+    <h2>آزمون جامع سنجش آموخته‌ها (۳۰ سؤال تصادفی)</h2>
+    <div class="quiz-box">
+      <div class="quiz-toolbar">
+        <div>
+          <strong>راهنمای آزمون:</strong> این آزمون شامل <b>۳۰ سؤال استاندارد</b> (۱۰ سؤال چهارگزینه‌ای و درست/نادرست از هر واحد کار) است که در هر بار اجرا به صورت کاملاً تصادفی چیده می‌شوند.
+        </div>
+        <div style="display:flex; gap:8px;">
+          <button class="quiz-btn secondary" onclick="startQuiz()">تولید آزمون تصادفی جدید</button>
+        </div>
+      </div>
+      <div id="score-container"></div>
+      <div id="quiz-questions"></div>
+      <div style="text-align:center; margin-top:20px;">
+        <button id="submit-quiz-btn" class="quiz-btn" onclick="gradeQuiz()">ثبت پاسخ‌ها و مشاهده کارنامه</button>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="footer-teacher">مدرس: خانم دکتر مریم هوتی نژاد، هنرستان ایثارگران بانک ملت</div>
+  <div>بانک سؤالات استاندارد پایش و ارزشیابی هنرجویان هنرستان — ۲۵ سؤال غیرتکراری برای هر واحد کار (مجموعاً ۷۵ سؤال طبقه‌بندی‌شده) به همراه آزمون ۳۰ سؤالی تصادفی</div>
+</footer>
+
+<script>
+const bank = {
+  "6": [
+    {
+      id: 1, type: "mc", concept: "تفاوت مدهای رنگی در اسکن", page: 79, pdf: 4,
+      text: "چرا برای اسکن تصاویری که هدف نهایی آن‌ها چاپ افست یا دیجیتال است، استفاده از اسکنرهای دارای قابلیت اسکن مستقیم در مد CMYK توصیه می‌شود؟",
+      options: [
+        "زیرا حجم فایل نهایی را نسبت به مد RGB تا نصف کاهش می‌دهد.",
+        "زیرا از بروز مشکل خروج از حیطه رنگی (Gamut) هنگام تبدیل RGB به CMYK جلوگیری می‌کند.",
+        "زیرا سرعت اسکن در مد CMYK دو برابر اسکن در مد RGB است.",
+        "زیرا فرمت‌های چاپی مانند TIFF فقط از تصاویر اسکن‌شده در مد CMYK پشتیبانی می‌کنند."
+      ],
+      answer: "گزینه ب) اسکنرهای معمولی فقط در مد RGB اسکن می‌کنند و هنگام تبدیل تصویر RGB به CMYK برای چاپ، رنگ‌ها دچار تغییر اساسی و خروج از حیطه رنگی می‌شوند؛ اما اسکن مستقیم در مد CMYK این مشکل را برطرف می‌سازد."
+    },
+    {
+      id: 2, type: "mc", concept: "محاسبه دقت اسکن برای چاپ", page: 79, pdf: 4,
+      text: "می‌خواهیم یک عکس با ابعاد ۴×۳ سانتی‌متر را اسکن کنیم تا در خروجی چاپی کتابی با کیفیت 150 LPI، در ابعاد ۱۲×۹ سانتی‌متر چاپ شود. دقت اسکنر (DPI) باید روی چه عددی تنظیم شود؟",
+      options: [
+        "300 DPI",
+        "450 DPI",
+        "600 DPI",
+        "900 DPI"
+      ],
+      answer: "گزینه د) طبق فرمول کتاب: دقت اسکن = (LPI خروجی × ۲) × ضریب بزرگ‌نمایی. در اینجا (150 × 2) = 300 و چون ابعاد عکس ۳ برابر شده است (از ۳×۴ به ۹×۱۲)، عدد ۳۰۰ در ۳ ضرب شده و دقت 900 DPI به دست می‌آید."
+    },
+    {
+      id: 3, type: "mc", concept: "رابط استاندارد دریافت تصویر", page: 80, pdf: 5,
+      text: "هنگامی که درایور اختصاصی یک اسکنر به صورت مستقیم از نرم‌افزار فتوشاپ پشتیبانی نمی‌کند، از کدام مسیر و رابط نرم‌افزاری برای دریافت تصویر استفاده می‌شود؟",
+      options: [
+        "منوی File > Import > گزینه Wia Support (رابط TWAIN)",
+        "منوی File > Export > گزینه Render Video",
+        "منوی Edit > Preferences > گزینه Plug-Ins",
+        "منوی Window > Workspace > گزینه Photography"
+      ],
+      answer: "گزینه الف) رابط TWAIN ارتباط نرم‌افزاری بین فتوشاپ و اسکنر یا دوربین دیجیتال را برقرار می‌کند که از مسیر File > Import > Wia Support در دسترس است."
+    },
+    {
+      id: 4, type: "mc", concept: "تنظیم مبدأ مختصات خط‌کش", page: 80, pdf: 5,
+      text: "برای اینکه نقطه صفر (مبدأ) خط‌کش افقی و عمودی فتوشاپ را دقیقاً بر گوشه بالا و سمت چپ تصویر منطبق کنیم، چه عملی باید انجام دهیم؟",
+      options: [
+        "روی خط‌کش افقی کلیک راست کرده و گزینه Reset Origin را انتخاب کنیم.",
+        "از محل تلاقی دو خط‌کش در گوشه بالا و چپ، کلیک و به گوشه تصویر درگ (Drag) کنیم.",
+        "کلیدهای ترکیبی Ctrl + Shift + R را هم‌زمان فشار دهیم.",
+        "در پنجره Preferences مقدار Margin خط‌کش را برابر صفر قرار دهیم."
+      ],
+      answer: "گزینه ب) با قرار دادن نشانگر ماوس در محل تقاطع خط‌کش افقی و عمودی و کشیدن (Drag) خطوط متقاطع به گوشه بالا و چپ سند، نقطه صفر خط‌کش در آن نقطه تنظیم می‌شود."
+    },
+    {
+      id: 5, type: "mc", concept: "تغییر واحد اندازه‌گیری خط‌کش", page: 81, pdf: 6,
+      text: "کدام‌یک از روش‌های زیر برای تغییر سریع واحد اندازه‌گیری خط‌کش (مثلاً از پیکسل به سانتی‌متر) در محیط فتوشاپ صحیح نیست؟",
+      options: [
+        "کلیک راست روی بدنه خط‌کش و انتخاب واحد مورد نظر از منوی بازشده",
+        "دابل کلیک روی خط‌کش برای باز شدن پنجره Units & Rulers",
+        "مراجعه به مسیر Edit > Preferences > Units & Rulers",
+        "فشار دادن کلید میان‌بر Ctrl + U و انتخاب واحد از بخش Rulers"
+      ],
+      answer: "گزینه د) کلید میان‌بر Ctrl + U مربوط به پنجره Hue/Saturation است و ارتباطی با تنظیمات واحد خط‌کش ندارد؛ سه روش دیگر همگی روش‌های استاندارد تغییر واحد خط‌کش هستند."
+    },
+    {
+      id: 6, type: "mc", concept: "اندازه‌گیری زاویه با ابزار Ruler", page: 82, pdf: 7,
+      text: "پس از رسم پاره خط اول (AB) با ابزار Ruler Tool، برای اینکه بتوانیم پاره خط دوم (BC) را از نقطه B رسم کرده و زاویه بین دو خط را اندازه‌گیری کنیم، کدام کلید را باید پایین نگه داریم؟",
+      options: [
+        "کلید Shift",
+        "کلید Ctrl",
+        "کلید Alt",
+        "کلید Spacebar"
+      ],
+      answer: "گزینه ج) با پایین نگه داشتن کلید Alt و درگ کردن از نقطه انتهایی خط اول به نقطه سوم، خط دوم رسم شده و زاویه بین دو پاره خط (A) در نوار Options و پنل Info نمایش داده می‌شود."
+    },
+    {
+      id: 7, type: "mc", concept: "ویژگی خطوط راهنما (Guides)", page: 83, pdf: 8,
+      text: "مهم‌ترین ویژگی خطوط راهنما (Guides) و خطوط شبکه‌ای (Grid) در زمان گرفتن خروجی نهایی از پروژه گرافیکی چیست؟",
+      options: [
+        "به صورت خودکار به لایه Background ادغام می‌شوند.",
+        "فقط در فرمت‌های برداری قابل چاپ هستند.",
+        "ماهیت کمکی دارند و در خروجی‌های چاپی نمایش داده نمی‌شوند.",
+        "باعث قفل شدن لایه‌های متنی زیر خود می‌گردند."
+      ],
+      answer: "گزینه ج) خطوط و نقاط راهنما صرفاً ابزارهای کمکی برای ترازبندی دقیق در صفحه نمایش هستند و غیرقابل چاپ می‌باشند."
+    },
+    {
+      id: 8, type: "mc", concept: "کلید میان‌بر نمایش/مخفی‌سازی Extras", page: 84, pdf: 9,
+      text: "برای مخفی کردن یا نمایش مجدد تمامی موارد کمکی روی صفحه (شامل خطوط راهنما، خطوط شبکه و مرز محدوده انتخاب) به صورت یکجا از کدام کلید میان‌بر استفاده می‌شود؟",
+      options: [
+        "Ctrl + H",
+        "Ctrl + R",
+        "Ctrl + G",
+        "Ctrl + D"
+      ],
+      answer: "گزینه الف) دستور Extras از منوی View یا کلید میان‌بر Ctrl + H تمامی عناصر کمکی نمایشی روی بوم را به صورت موقت پنهان یا آشکار می‌کند."
+    },
+    {
+      id: 9, type: "mc", concept: "بزرگ‌نمایی به روش Scrubby Zoom", page: 85, pdf: 10,
+      text: "بزرگ‌نمایی و کوچک‌نمایی تصویر به روش Scrubby Zoom در فتوشاپ چگونه انجام می‌شود؟",
+      options: [
+        "با چرخاندن اسکرول ماوس هم‌زمان با نگه داشتن کلید Shift",
+        "با کلیک و درگ به چپ و راست روی تصویر یا ناحیه درصد بزرگ‌نمایی پایین پنجره (هم‌زمان با کلید Ctrl)",
+        "با دوبار کلیک روی ابزار Hand در جعبه ابزار",
+        "با رسم یک کادر مستطیلی دور سوژه توسط ابزار Marquee"
+      ],
+      answer: "گزینه ب) در حالت Scrubby Zoom، با نگه داشتن دکمه ماوس و درگ کردن به چپ و راست، نشانگر به صورت اسلایدر عمل کرده و میزان بزرگ‌نمایی را به نرمی تغییر می‌دهد."
+    },
+    {
+      id: 10, type: "mc", concept: "کلید میان‌بر Fit on Screen", page: 85, pdf: 10,
+      text: "کدام کلید میان‌بر باعث می‌شود تصویر بازشده در فتوشاپ دقیقاً متناسب با ابعاد پنجره نمایشگر (Fit on Screen) تنظیم شود؟",
+      options: [
+        "Ctrl + 0",
+        "Ctrl + 1",
+        "Ctrl + +",
+        "Alt + Spacebar"
+      ],
+      answer: "گزینه الف) کلید ترکیبی Ctrl + 0 تصویر را به اندازه صفحه نمایش تنظیم می‌کند (Fit on Screen)."
+    },
+    {
+      id: 11, type: "tf", concept: "تغییر دقت تصویر در فتوشاپ", page: 79, pdf: 4,
+      text: "درست یا نادرست: اگر عکسی را با دقت پایین اسکن کنیم، می‌توانیم بعداً در محیط نرم‌افزار فتوشاپ با افزایش عدد Resolution، جزئیات و کیفیت واقعی تصویر از دست رفته را بازیابی کنیم.",
+      options: ["درست", "نادرست"],
+      answer: "نادرست است؛ تغییر دقت تصویر پس از اسکن در داخل فتوشاپ کیفیت واقعی را افزایش نمی‌دهد، بنابراین دقت اسکنر باید پیش از شروع اسکن به درستی تعیین شود."
+    },
+    {
+      id: 12, type: "tf", concept: "تعیین محدوده اسکن", page: 79, pdf: 4,
+      text: "درست یا نادرست: هنگام تنظیم کادر اسکن، بهتر است محدوده اسکن را کمی بزرگ‌تر از اندازه نهایی مورد نظر انتخاب کنیم تا بخش‌هایی از لبه‌های تصویر در خروجی حذف نشوند.",
+      options: ["درست", "نادرست"],
+      answer: "درست است؛ بزرگ‌تر گرفتن جزئی کادر اسکن مانع از بریده شدن ناخواسته لبه‌های تصویر هنگام اسکن می‌شود."
+    },
+    {
+      id: 13, type: "tf", concept: "تغییر وضعیت خط‌کش", page: 80, pdf: 5,
+      text: "درست یا نادرست: کلید میان‌بر Ctrl + R هم برای نمایش خط‌کش‌ها و هم برای مخفی کردن مجدد آن‌ها در محیط فتوشاپ به کار می‌رود.",
+      options: ["درست", "نادرست"],
+      answer: "درست است؛ دستور View > Rulers یا کلید میان‌بر Ctrl + R وضعیت نمایش خط‌کش را تغییر می‌دهد."
+    },
+    {
+      id: 14, type: "tf", concept: "ثابت نگه داشتن خطوط راهنما", page: 83, pdf: 8,
+      text: "درست یا نادرست: برای جلوگیری از جابه‌جایی ناخواسته خطوط راهنما هنگام کار با ابزار Move، باید از منوی View دستور Lock Guides را اجرا کنیم.",
+      options: ["درست", "نادرست"],
+      answer: "درست است؛ دستور Lock Guides خطوط راهنما را در موقعیت خود قفل می‌کند."
+    },
+    {
+      id: 15, type: "tf", concept: "دسترسی موقت به ابزار Hand", page: 85, pdf: 10,
+      text: "درست یا نادرست: هنگامی که تصویر در حالت بزرگ‌نمایی (Zoom) قرار دارد، با پایین نگه داشتن کلید Spacebar می‌توان به صورت موقت به ابزار Hand دسترسی پیدا کرد و تصویر را جابه‌جا نمود.",
+      options: ["درست", "نادرست"],
+      answer: "درست است؛ کلید Spacebar ابزار جابه‌جایی صفحه (Hand Tool) را به صورت موقت فعال می‌کند."
+    },
+    {
+      id: 16, type: "fill", concept: "تعریف افزونه در فتوشاپ", page: 80, pdf: 5,
+      text: "جای خالی را با عبارت مناسب کامل کنید: نرم‌افزارهایی مانند فتوشاپ که دارای معماری باز هستند، این قابلیت را دارند که برنامه‌های جانبی به نام .................... به آن‌ها اضافه شده و قابلیت‌های حرفه‌ای نرم‌افزار را گسترش دهند.",
+      answer: "Plug-In (پلاگین یا افزونه)"
+    },
+    {
+      id: 17, type: "fill", concept: "مفهوم LPI در چاپ", page: 79, pdf: 4,
+      text: "جای خالی را کامل کنید: در صنعت چاپ، تعداد نقاط هافتون (Halftone) چاپ‌شده در هر اینچ را با واحد .................... بیان می‌کنند.",
+      answer: "LPI (Lines Per Inch)"
+    },
+    {
+      id: 18, type: "fill", concept: "چسبندگی به خطوط راهنما", page: 83, pdf: 8,
+      text: "جای خالی را کامل کنید: برای اینکه لبه‌های محدوده انتخاب یا اشیاء هنگام حرکت دقیقاً به خطوط راهنما بچسبند، باید از منوی View و زیرمنوی Snap گزینه .................... را فعال کنیم.",
+      answer: "Guides"
+    },
+    {
+      id: 19, type: "fill", concept: "نوار اطلاعات ابزار Ruler", page: 82, pdf: 7,
+      text: "جای خالی را کامل کنید: هنگام استفاده از ابزار Ruler Tool، پارامتر L1 نشان‌دهنده طول پاره خط اول و پارامتر .................... نشان‌دهنده زاویه بین دو پاره خط است.",
+      answer: "A (Angle)"
+    },
+    {
+      id: 20, type: "fill", concept: "بزرگ‌نمایی موقت با صفحه‌کلید", page: 85, pdf: 10,
+      text: "جای خالی را کامل کنید: با پایین نگه داشتن هم‌زمان کلیدهای ترکیبی .................... می‌توان ابزار Zoom را به صورت موقت برای بزرگ‌نمایی فعال کرد.",
+      answer: "Ctrl + Spacebar"
+    },
+    {
+      id: 21, type: "desc", concept: "روش‌های دریافت تصویر در فتوشاپ", page: 79, pdf: 4,
+      text: "سه روش اصلی ورود یا دریافت تصاویر به محیط نرم‌افزار فتوشاپ را نام ببرید.",
+      answer: "۱) اسکن کردن تصاویر به وسیله اسکنر\n۲) عکاسی و انتقال تصاویر از طریق دوربین‌های دیجیتال\n۳) باز کردن فایل‌های تصویری ذخیره‌شده روی دیسک سخت یا حافظه‌های جانبی."
+    },
+    {
+      id: 22, type: "desc", concept: "راه‌های انتقال تصویر اسکن‌شده به فتوشاپ", page: 80, pdf: 5,
+      text: "اگر بخواهیم تصویری را از اسکنر وارد فتوشاپ کنیم، چه راه‌هایی پیش روی ماست؟ توضیح دهید.",
+      answer: "۱) استفاده از پلاگین اختصاصی اسکنر از مسیر File > Import و کلیک روی نام اسکنر\n۲) استفاده از رابط عمومی TWAIN از مسیر File > Import > Wia Support (در صورت عدم پشتیبانی مستقیم درایور)\n۳) اسکن تصویر با نرم‌افزار خود اسکنر، ذخیره با فرمت TIFF یا BMP و باز کردن آن در فتوشاپ."
+    },
+    {
+      id: 23, type: "desc", concept: "اطلاعات پنل Info در ابزار Ruler", page: 82, pdf: 7,
+      text: "هنگام اندازه‌گیری با ابزار Ruler Tool، چه اطلاعاتی در نوار Options و پنل Info نمایش داده می‌شود؟ (۴ مورد را شرح دهید)",
+      answer: "X و Y: مختصات نقطه شروع اندازه‌گیری | W و H: عرض و ارتفاع افقی و عمودی جابه‌جایی | L1 و L2: طول پاره خط اول و پاره خط دوم | A (Angle): زاویه خط یا زاویه بین دو پاره خط."
+    },
+    {
+      id: 24, type: "practical", concept: "تقسیم‌بندی صفحه با خطوط راهنما", page: 83, pdf: 8,
+      text: "سناریوی عملی: یک سند جدید با ابعاد ۱۰۲۴×۷۶۸ پیکسل و دقت 72 PPI ایجاد کنید. مراحل تقسیم‌بندی افقی این صفحه به سه ناحیه با ارتفاع‌های ۲۰۰، ۵۰۰ و ۶۸ پیکسل با استفاده از خطوط راهنما را به ترتیب بنویسید.",
+      answer: "۱) ایجاد سند از مسیر File > New با ابعاد ۱۰۲۴ در ۷۶۸ پیکسل و وضوح 72 PPI.\n۲) فعال کردن خط‌کش با کلید Ctrl + R و تنظیم واحد روی Pixels.\n۳) کشیدن (Drag) اولین خط راهنما از خط‌کش افقی بالا تا عدد ۲۰۰ پیکسل.\n۴) کشیدن دومین خط راهنما از خط‌کش افقی بالا تا عدد ۷۰۰ پیکسل (۲۰۰ + ۵۰۰) تا ناحیه دوم ۵۰۰ پیکسل و ناحیه سوم ۶۸ پیکسل شود."
+    },
+    {
+      id: 25, type: "practical", concept: "تراز کردن افق تصویر با ابزار Ruler", page: 82, pdf: 7,
+      text: "سناریوی عملی: عکسی که اسکن کرده‌اید کمی کج است. توضیح دهید چگونه با کمک ابزار Ruler Tool و نوار تنظیمات آن، لایه تصویر را به سرعت تراز (صاف) می‌کنید؟",
+      answer: "۱) ابزار Ruler Tool را از جعبه ابزار انتخاب می‌کنیم.\n۲) روی خط افق یا یک لبه کج در تصویر کلیک کرده و در امتداد آن تا انتهای لبه درگ می‌کنیم.\n۳) در نوار Options بالای صفحه، روی دکمه Straighten Layer کلیک می‌کنیم تا فتوشاپ به صورت خودکار تصویر را به اندازه زاویه اندازه‌گیری‌شده بچرخاند و صاف کند."
+    }
+  ],
+  "7": [
+    {
+      id: 1, type: "mc", concept: "انواع قفل لایه‌ها", page: 96, pdf: 16,
+      text: "در نوار قفل‌های بالای پانل Layers، کدام گزینه تنها از پیکسل‌های رنگی (تصویری) لایه در برابر ویرایش محافظت می‌کند و اجازه رنگ‌آمیزی روی نواحی شفاف را می‌دهد؟",
+      options: [
+        "Lock Transparent Pixels (قفل پیکسل‌های شفاف)",
+        "Lock Image Pixels (قفل قلم‌مو / پیکسل‌های تصویری)",
+        "Lock Position (قفل جابه‌جایی)",
+        "Lock All (قفل کامل)"
+      ],
+      answer: "گزینه ب) قفل قلم‌مو (Lock Image Pixels) برعکس قفل پیکسل‌های شفاف عمل کرده و بخش‌های دارای تصویر را از ویرایش و نقاشی مصون نگه می‌دارد."
+    },
+    {
+      id: 2, type: "mc", concept: "میان‌برهای جابه‌جایی ترتیب لایه‌ها", page: 96, pdf: 16,
+      text: "برای انتقال لایه انتخاب‌شده به بالاترین سطح (روی تمام لایه‌های دیگر) در پانل Layers، از کدام کلید ترکیبی استفاده می‌شود؟",
+      options: [
+        "Ctrl + ]",
+        "Ctrl + [",
+        "Ctrl + Shift + ]",
+        "Ctrl + Shift + ["
+      ],
+      answer: "گزینه ج) کلید ترکیبی Ctrl + Shift + ] لایه فعال را مستقیماً به بالاترین موقعیت در پانل لایه‌ها منتقل می‌کند."
+    },
+    {
+      id: 3, type: "mc", concept: "تفاوت Layer via Copy و Layer via Cut", page: 97, pdf: 17,
+      text: "تفاوت اصلی اجرای دستور Layer via Cut با دستور Layer via Copy بر روی یک محدوده انتخاب‌شده چیست؟",
+      options: [
+        "در Layer via Cut لایه جدید به صورت قفل‌شده ایجاد می‌شود.",
+        "در Layer via Cut محدوده انتخاب‌شده از لایه اصلی بریده (حذف) شده و به لایه جدید منتقل می‌شود.",
+        "در Layer via Cut لایه جدید در پایین‌ترین سطح پانل قرار می‌گیرد.",
+        "دستور Layer via Cut فقط بر روی لایه‌های متنی قابل اجراست."
+      ],
+      answer: "گزینه ب) دستور Layer via Copy یک کپی از ناحیه انتخابی در لایه جدید می‌سازد بدون آنکه به لایه اصلی آسیب بزند، اما Layer via Cut آن بخش را از لایه مبدأ برش داده و منتقل می‌کند."
+    },
+    {
+      id: 4, type: "mc", concept: "ادغام لایه‌ها با Flatten Image", page: 98, pdf: 18,
+      text: "هنگام اجرای دستور Flatten Image بر روی سندی که دارای چند لایه آشکار و دو لایه مخفی (چشم خاموش) است، چه اتفاقی می‌افتد؟",
+      options: [
+        "تمامی لایه‌ها اعم از آشکار و مخفی در یک لایه ادغام می‌شوند.",
+        "لایه های آشکار در قالب یک لایه Background ادغام شده و لایه‌های مخفی حذف می‌شوند.",
+        "فقط لایه‌های مخفی حذف شده و لایه‌های آشکار به صورت جداگانه باقی می‌مانند.",
+        "فتوشاپ پیغام خطا داده و اجازه اجرای دستور را نمی‌دهد."
+      ],
+      answer: "گزینه ب) دستور Flatten Image تمامی لایه‌های آشکار را در یک لایه فشرده Background یکدست می‌کند و در این فرایند لایه‌های مخفی حذف می‌شوند."
+    },
+    {
+      id: 5, type: "mc", concept: "ادغام لایه با لایه پایینی", page: 98, pdf: 18,
+      text: "دستور Merge Down (با کلید میان‌بر Ctrl + E) چه عملیاتی بر روی لایه‌ها انجام می‌دهد؟",
+      options: [
+        "تمام لایه‌های متصل (Link شده) را با هم ادغام می‌کند.",
+        "لایه انتخاب‌شده را با لایه بلافاصله زیرین خود ادغام می‌کند.",
+        "تمام لایه‌های فایل را به لایه Background تبدیل می‌کند.",
+        "لایه فعال را به پایین‌ترین موقعیت پانل منتقل می‌کند."
+      ],
+      answer: "گزینه ب) دستور Merge Down یا میان‌بر Ctrl + E لایه فعال را دقیقاً با یک لایه پایین‌تر از خودش ترکیب می‌کند."
+    },
+    {
+      id: 6, type: "mc", concept: "ویرایش غیرتخریبی (Nondestructive)", page: 98, pdf: 18,
+      text: "مهم‌ترین مزیت استفاده از Adjustment Layer (لایه تنظیم رنگ) به جای اجرای مستقیم دستورات منوی Image > Adjustments چیست؟",
+      options: [
+        "حجم فایل PSD را به صفر می‌رساند.",
+        "باعث ویرایش غیرتخریبی می‌شود و امکان تغییر مجدد یا حذف تنظیمات بدون آسیب به تصویر اصلی وجود دارد.",
+        "تغییرات را به صورت خودکار روی فایل‌های JPG نیز ذخیره می‌کند.",
+        "سرعت پردازش فیلترهای سه‌بعدی را افزایش می‌دهد."
+      ],
+      answer: "گزینه ب) در ویرایش غیرتخریبی، تغییرات رنگ و نور در یک لایه مجزا اعمال می‌شوند و پیکسل‌های لایه اصلی دست‌نخورده باقی می‌مانند."
+    },
+    {
+      id: 7, type: "mc", concept: "تبدیل لایه متنی به پیکسلی", page: 101, pdf: 21,
+      text: "برای اینکه بتوانیم ابزارهای نقاشی یا فیلترهای پیکسلی را روی یک لایه متنی اعمال کنیم، ابتدا باید کدام دستور را روی لایه متن اجرا نماییم؟",
+      options: [
+        "Convert to Paragraph Text",
+        "Rasterize Type",
+        "Warp Text",
+        "Link Layers"
+      ],
+      answer: "گزینه ب) دستور Layer > Rasterize > Type لایه متنی برداری را به لایه پیکسلی معمولی تبدیل می‌کند (البته پس از آن امکان ویرایش تایپی متن از بین می‌رود)."
+    },
+    {
+      id: 8, type: "mc", concept: "تنظیم فارسی‌نویسی در فتوشاپ", page: 101, pdf: 21,
+      text: "برای رفع مشکل جدا افتادن حروف فارسی و راست‌به‌چین شدن صحیح جملات در پنل Paragraph، کدام گزینه باید فعال باشد؟",
+      options: [
+        "Hyphenate",
+        "World-Ready Layout",
+        "Anti-aliased",
+        "Use Global Light"
+      ],
+      answer: "گزینه ب) گزینه World-Ready Layout در منوی پنل Paragraph موتور چیدمان زبان‌های راست‌به‌چین مانند فارسی و عربی را فعال می‌کند."
+    },
+    {
+      id: 9, type: "mc", concept: "تفاوت جلوه‌های Bevel و Emboss", page: 105, pdf: 25,
+      text: "تفاوت ظاهری جلوه Bevel با جلوه Emboss در پنجره Layer Style چیست؟",
+      options: [
+        "Bevel سایه بیرونی ایجاد می‌کند اما Emboss دورخط می‌کشد.",
+        "Bevel لبه‌های متن را برجسته می‌سازد در حالی که سطح حروف صاف است، اما Emboss ظاهر حروف را گرد و انحناوار می‌کند.",
+        "Bevel فقط روی تصاویر پیکسلی و Emboss فقط روی متن اعمال می‌شود.",
+        "Bevel نور درونی ایجاد می‌کند و Emboss شیب رنگی می‌سازد."
+      ],
+      answer: "گزینه ب) طبق متن کتاب، جلوه Bevel لبه‌ها را با سطح صاف برجسته می‌کند، اما جلوه Emboss حالتی گرد و انحناوار به حروف می‌دهد."
+    },
+    {
+      id: 10, type: "mc", concept: "قطع‌های استاندارد پوستر و لب پنجه", page: 107, pdf: 27,
+      text: "نسبت ابعاد قطع‌های استاندارد پوستر در ایران کدام است و به حاشیه یک سانتی‌متری دور تا دور پوستر که در چاپ به عنوان دورریز در نظر گرفته می‌شود چه می‌گویند؟",
+      options: [
+        "نسبت ۳ به ۴ — حاشیه امن (Safe Margin)",
+        "نسبت ۵ به ۷ — لب پنجه",
+        "نسبت ۱ به ۲ — خط تا (Crease)",
+        "نسبت ۱۶ به ۹ — کادر شاخص"
+      ],
+      answer: "گزینه ب) قطع‌های استاندارد پوستر (۳۵×۵۰، ۵۰×۷۰ و ۷۰×۱۰۰) همگی نسبت ۵ به ۷ دارند و به حاشیه یک سانتی‌متری دورریز چاپ «لب پنجه» می‌گویند."
+    },
+    {
+      id: 11, type: "tf", concept: "مخفی کردن لایه", page: 95, pdf: 15,
+      text: "درست یا نادرست: با کلیک بر روی آیکون چشم در سمت چپ نام یک لایه، آن لایه از سند حذف می‌شود و برای بازگرداندن آن حتماً باید از کلید Ctrl + Z استفاده کرد.",
+      options: ["درست", "نادرست"],
+      answer: "نادرست است؛ کلیک روی آیکون چشم فقط لایه را موقتاً پنهان (مخفی) می‌کند و با کلیک مجدد در همان محل، لایه دوباره آشکار می‌شود."
+    },
+    {
+      id: 12, type: "tf", concept: "جابه‌جایی هم‌زمان لایه‌ها", page: 97, pdf: 17,
+      text: "درست یا نادرست: برای جابه‌جایی یا تغییر اندازه هم‌زمان چند لایه بدون ادغام کردن آن‌ها، می‌توانیم لایه‌ها را انتخاب کرده و از دستور Link Layers (نماد زنجیر) استفاده کنیم.",
+      options: ["درست", "نادرست"],
+      answer: "درست است؛ پیوند دادن لایه‌ها (Link Layers) امکان حرکت و تغییر مقیاس هم‌زمان آن‌ها را بدون ادغام دائمی فراهم می‌کند."
+    },
+    {
+      id: 13, type: "tf", concept: "ویرایش لایه Background", page: 98, pdf: 18,
+      text: "درست یا نادرست: لایه Background به صورت پیش‌فرض قفل است و برای جابه‌جایی آن یا ایجاد نواحی شفاف در آن، ابتدا باید با دابل کلیک یا دستور Layer from Background آن را به لایه معمولی تبدیل کرد.",
+      options: ["درست", "نادرست"],
+      answer: "درست است؛ لایه Background قابلیت جابه‌جایی یا شفافیت ندارد مگر اینکه به لایه عادی تبدیل شود."
+    },
+    {
+      id: 14, type: "tf", concept: "متن نقطه‌ای و پاراگرافی", page: 100, pdf: 20,
+      text: "درست یا نادرست: اگر ابزار Type را انتخاب کرده و به جای کلیک ساده، روی صفحه کلیک و درگ کنیم، یک کادر مستطیلی برای ایجاد متن پاراگرافی ساخته می‌شود.",
+      options: ["درست", "نادرست"],
+      answer: "درست است؛ کلیک ساده متن نقطه‌ای (Point Text) و کلیک و درگ کادر متن پاراگرافی (Paragraph Text) ایجاد می‌کند."
+    },
+    {
+      id: 15, type: "tf", concept: "جهت کادر پوستر", page: 110, pdf: 30,
+      text: "درست یا نادرست: در مکان‌هایی مانند ایستگاه مترو که بیننده در حال حرکت است و پوستر ثابت است، استفاده از کادر افقی به دلیل ایجاد میدان دید گسترده‌تر مناسب‌تر است.",
+      options: ["درست", "نادرست"],
+      answer: "درست است؛ در حالت حرکت بیننده (مانند مترو) یا حرکت پوستر (مانند بدنه اتوبوس)، کادر افقی میدان دید بهتری فراهم می‌کند."
+    },
+    {
+      id: 16, type: "fill", concept: "فرمت ذخیره‌سازی لایه‌باز", page: 97, pdf: 17,
+      text: "جای خالی را کامل کنید: فرمت پیش‌فرض نرم‌افزار فتوشاپ که امکان ذخیره‌سازی فایل همراه با تمام لایه‌ها و جلوه‌های آن را فراهم می‌کند، فرمت .................... است.",
+      answer: "PSD"
+    },
+    {
+      id: 17, type: "fill", concept: "ادغام لایه‌های آشکار", page: 98, pdf: 18,
+      text: "جای خالی را کامل کنید: برای ادغام تمامی لایه‌های آشکار (بدون حذف شدن لایه‌های مخفی)، از دستور .................... در منوی Layer استفاده می‌شود.",
+      answer: "Merge Visible"
+    },
+    {
+      id: 18, type: "fill", concept: "ابزار ماسک متنی", page: 100, pdf: 20,
+      text: "جای خالی را کامل کنید: برای ایجاد یک محدوده انتخاب (Selection) به شکل حروف افقی بدون ساخت لایه متنی مستقل، از ابزار .................... استفاده می‌کنیم.",
+      answer: "Horizontal Type Mask Tool"
+    },
+    {
+      id: 19, type: "fill", concept: "ساختار هندسی پوستر", page: 108, pdf: 28,
+      text: "جای خالی را کامل کنید: در تقسیم‌بندی کلاسیک کادر پوستر، به بخش میانی که بیشترین فضا را برای ترکیب‌بندی اصلی در اختیار طراح می‌گذارد .................... گفته می‌شود.",
+      answer: "مربع شاخص"
+    },
+    {
+      id: 20, type: "fill", concept: "کپی جلوه‌های لایه", page: 107, pdf: 27,
+      text: "جای خالی را کامل کنید: برای انتقال سریع تنظیمات جلوه‌های ویژه (Layer Style) از یک لایه به لایه دیگر، با کلیک راست روی لایه مبدأ گزینه .................... را انتخاب کرده و روی لایه مقصد Paste Layer Style را می‌زنیم.",
+      answer: "Copy Layer Style"
+    },
+    {
+      id: 21, type: "desc", concept: "تفاوت جلوه‌های درخشندگی", page: 105, pdf: 25,
+      text: "کاربرد جلوه Inner Glow را با جلوه Outer Glow در پنجره Layer Style مقایسه کنید.",
+      answer: "جلوه Inner Glow درخشندگی را به سمت داخل حروف یا شیء اعمال می‌کند و باعث می‌شود سوژه درخشان به نظر برسد (مناسب برای برجسته کردن متن روی پس‌زمینه شلوغ)؛ اما Outer Glow درخشندگی را در بیرون لبه‌های سوژه ایجاد می‌کند و برای جدا کردن سوژه از پس‌زمینه در جاهایی که سایه مناسب نیست به کار می‌رود."
+    },
+    {
+      id: 22, type: "desc", concept: "اصول اعمال سایه حرفه‌ای", page: 103, pdf: 23,
+      text: "سه نکته مهم و حرفه‌ای که هنگام اعمال جلوه سایه (Drop Shadow) در طراحی گرافیک باید رعایت شود را بنویسید.",
+      answer: "۱) از سایه در همه‌جای تصویر استفاده نکنیم تا خاصیت تأکید و جلب توجه آن از بین نرود.\n۲) زاویه و عمق تمام سایه‌ها در یک طرح باید یکنواخت و هماهنگ باشد.\n۳) سایه را بیش از حد تیره و غلیظ نکنیم؛ سایه‌های روشن و ظریف جلوه طبیعی‌تری دارند."
+    },
+    {
+      id: 23, type: "desc", concept: "تبدیل انواع متن در فتوشاپ", page: 101, pdf: 21,
+      text: "چگونه می‌توان یک متن نقطه‌ای (کاراکتری) را به متن پاراگرافی و بالعکس تبدیل کرد؟ مسیر دستورات را بنویسید.",
+      answer: "پس از انتخاب لایه متنی در پانل Layers، از منوی Type برای تبدیل متن نقطه‌ای به پاراگرافی دستور Convert to Paragraph Text و برای تبدیل متن پاراگرافی به نقطه‌ای دستور Convert to Point Text را اجرا می‌کنیم."
+    },
+    {
+      id: 24, type: "practical", concept: "طراحی پوستر استاندارد", page: 108, pdf: 28,
+      text: "سناریوی عملی: قصد دارید یک پوستر چاپی برای نمایشگاه هنرستان در قطع استاندارد ۵۰×۷۰ سانتی‌متر طراحی کنید. مراحل آماده‌سازی سند و رعایت حاشیه چاپ (لب پنجه) و ساختار کادر را شرح دهید.",
+      answer: "۱) ایجاد سند جدید با ابعاد ۵۰ در ۷۰ سانتی‌متر، وضوح 300 PPI و مد رنگی CMYK.\n۲) ترسیم ۴ خط راهنما به فاصله ۱ سانتی‌متر از لبه‌های بالا، پایین، چپ و راست برای مشخص کردن محدوده «لب پنجه» (دورریز چاپ).\n۳) تقسیم‌بندی ارتفاع داخلی برای مشخص کردن «مستطیل‌های رهنمون‌گر» (محل تیتر و اطلاعات) و «مربع شاخص» (محل تصویرسازی اصلی)."
+    },
+    {
+      id: 25, type: "practical", concept: "ذخیره و اعمال سبک اختصاصی", page: 106, pdf: 26,
+      text: "سناریوی عملی: بر روی تیتر یک پوستر جلوه‌های Stroke و Gradient Overlay اعمال کرده‌اید و می‌خواهید این ترکیب را به عنوان یک سبک آماده برای پروژه‌های بعدی ذخیره کنید. مراحل کار را بنویسید.",
+      answer: "۱) در پنجره بازشده Layer Style، پس از تنظیم کامل Stroke و Gradient Overlay، روی دکمه New Style کلیک می‌کنیم.\n۲) در پنجره بازشده نام دلخواه را وارد و تیک Include Layer Effects را تایید می‌کنیم.\n۳) در پروژه‌های بعدی، لایه جدید را انتخاب کرده و از پانل Window > Styles روی سبک ذخیره‌شده کلیک می‌کنیم."
+    }
+  ],
+  "10": [
+    {
+      id: 1, type: "mc", concept: "تفاوت Clone Stamp و Healing Brush", page: 113, pdf: 38,
+      text: "تفاوت اساسی عملکرد ابزار Healing Brush با ابزار Clone Stamp (مهر لاستیکی) در زمان رتوش تصویر چیست؟",
+      options: [
+        "Healing Brush نیازی به نمونه‌برداری با کلید Alt ندارد.",
+        "Healing Brush علاوه بر انتقال بافت نمونه، نور و رنگ آن را با محیط اطراف مقصد هماهنگ می‌کند.",
+        "Clone Stamp فقط در تصاویر سیاه و سفید کاربرد دارد.",
+        "Healing Brush تنها برای پر کردن سطوح با الگوهای هندسی ساخته شده است."
+      ],
+      answer: "گزینه ب) ابزار Clone Stamp پیکسل‌های مبدأ را عیناً بدون تغییر در مقصد کپی می‌کند، اما ابزار Healing Brush بافت نمونه را با نور، روشنایی و رنگ ناحیه مقصد تطبیق می‌دهد."
+    },
+    {
+      id: 2, type: "mc", concept: "گزینه Aligned در Clone Stamp", page: 112, pdf: 37,
+      text: "در نوار تنظیمات ابزار Clone Stamp، فعال بودن گزینه Aligned چه تأثیری بر نحوه نمونه‌برداری و کپی کردن دارد؟",
+      options: [
+        "نقطه مبدأ (علامت +) با حرکت قلم‌مو هم‌زمان جابه‌جا می‌شود و فاصله نسبی خود را حفظ می‌کند.",
+        "با هر بار رها کردن دکمه ماوس، کپی کردن مجدداً از همان نقطه اولیه شروع می‌شود.",
+        "اندازه قلم‌مو را به صورت خودکار با ابعاد تصویر تنظیم می‌کند.",
+        "باعث می‌شود نمونه‌برداری از تمام لایه‌های سند انجام شود."
+      ],
+      answer: "گزینه الف) وقتی گزینه Aligned فعال باشد، نقطه مرجع همگام با حرکت نشانگر قلم‌مو حرکت می‌کند تا یک بافت پیوسته کپی شود؛ اما در حالت غیرفعال، با هر کلیک جدید، کپی از نقطه اولیه تکرار می‌گردد."
+    },
+    {
+      id: 3, type: "mc", concept: "حالت‌های ابزار Patch Tool", page: 114, pdf: 39,
+      text: "هنگام استفاده از ابزار Patch Tool، اگر در نوار Options حالت Source انتخاب شده باشد، روش کار چگونه است؟",
+      options: [
+        "ابتدا ناحیه سالم را انتخاب کرده و به روی ناحیه معیوب می‌کشیم.",
+        "ابتدا دور ناحیه معیوب را انتخاب کرده و سپس آن محدوده را به سمت ناحیه سالم درگ می‌کنیم.",
+        "با یک کلیک روی لکه، نرم‌افزار به صورت خودکار آن را حذف می‌کند.",
+        "الگوی انتخاب‌شده از پنل Pattern جایگزین ناحیه انتخابی می‌شود."
+      ],
+      answer: "گزینه ب) در حالت Source، ابتدا ناحیه آسیب‌دیده انتخاب می‌شود و با کشیدن آن روی بافت سالم، بافت سالم به جای ناحیه معیوب جایگزین می‌گردد."
+    },
+    {
+      id: 4, type: "mc", concept: "گزینه Finger Painting در ابزار Smudge", page: 115, pdf: 40,
+      text: "فعال کردن گزینه Finger Painting در نوار تنظیمات ابزار Smudge Tool (یا نگه داشتن کلید Alt هنگام کشیدن آن) چه نتیجه‌ای ایجاد می‌کند؟",
+      options: [
+        "لبه پیکسل‌ها را بسیار تیز و واضح می‌کند.",
+        "در ابتدای حرکت قلم‌مو، رنگ پیش‌زمینه (Foreground) را به تصویر اضافه کرده و با رنگ‌های مسیر مخلوط می‌کند.",
+        "تمام رنگ‌های مسیر حرکت را به خاکستری خنثی تبدیل می‌کند.",
+        "ابزار Smudge را به صورت موقت به ابزار Blur تبدیل می‌کند."
+      ],
+      answer: "گزینه ب) گزینه Finger Painting (نقاشی با انگشت) باعث می‌شود رنگ Foreground در شروع حرکت به رنگ‌های زیرین آغشته شده و همراه با آن‌ها پخش شود."
+    },
+    {
+      id: 5, type: "mc", concept: "تغییر موقت بین Blur و Sharpen", page: 116, pdf: 41,
+      text: "هنگام کار با ابزار Blur (محوکننده)، با پایین نگه داشتن کدام کلید می‌توان آن را به صورت موقت به ابزار Sharpen (وضوح‌دهنده) تبدیل کرد؟",
+      options: [
+        "کلید Alt",
+        "کلید Shift",
+        "کلید Ctrl",
+        "کلید Tab"
+      ],
+      answer: "گزینه الف) با پایین نگه داشتن کلید Alt هنگام استفاده از ابزارهای تغییر فوکوس، عملکرد Blur و Sharpen به صورت معکوس تبدیل می‌شود."
+    },
+    {
+      id: 6, type: "mc", concept: "کاربرد ابزارهای Dodge، Burn و Sponge", page: 117, pdf: 42,
+      text: "کدام یک از گزینه‌های زیر ترتیب صحیح کاربرد ابزارهای Dodge، Burn و Sponge را نشان می‌دهد؟",
+      options: [
+        "Dodge: تیره کردن | Burn: روشن کردن | Sponge: محو کردن",
+        "Dodge: روشن کردن | Burn: تیره کردن | Sponge: تغییر میزان اشباع رنگ",
+        "Dodge: تغییر اشباع | Burn: افزایش کنتراست | Sponge: روشن کردن",
+        "Dodge: پخش رنگ | Burn: روشن کردن | Sponge: تیره کردن"
+      ],
+      answer: "گزینه ب) ابزار Dodge باعث روشن‌تر شدن موضعی، Burn باعث تیره‌تر شدن موضعی و Sponge باعث افزایش (Saturate) یا کاهش (Desaturate) اشباع رنگ می‌شود."
+    },
+    {
+      id: 7, type: "mc", concept: "گزینه Protect Tones در Dodge و Burn", page: 118, pdf: 43,
+      text: "فعال بودن تیک گزینه Protect Tones در نوار تنظیمات ابزارهای Dodge و Burn چه مزیتی دارد؟",
+      options: [
+        "سرعت حرکت قلم‌مو را افزایش می‌دهد.",
+        "از تغییر ناخواسته فام رنگ‌ها و سوختگی شدید سایه‌روشن‌ها جلوگیری کرده و کیفیت رنگ اصلی را حفظ می‌کند.",
+        "تغییرات را در یک لایه جدید اعمال می‌کند.",
+        "فقط روی نواحی سفید تصویر عمل می‌کند."
+      ],
+      answer: "گزینه ب) گزینه Protect Tones از تغییر یافتن تناژ رنگی اصلی ناحیه هنگام روشن یا تیره کردن محافظت می‌کند."
+    },
+    {
+      id: 8, type: "mc", concept: "چرخه رنگ‌های متضاد در Color Balance", page: 123, pdf: 48,
+      text: "در یک عکس قدیمی که دچار زردی شدید شده است، برای خنثی کردن رنگ زرد از طریق پنجره Color Balance (Ctrl + B) باید لغزنده را به سمت کدام رنگ حرکت دهیم؟",
+      options: [
+        "رنگ سبز (Green)",
+        "رنگ آبی (Blue)",
+        "رنگ سرخابی (Magenta)",
+        "رنگ فیروزه‌ای (Cyan)"
+      ],
+      answer: "گزینه ب) در چرخه رنگ، رنگ آبی (Blue) متضاد رنگ زرد (Yellow) است؛ بنابراین افزایش رنگ آبی باعث کاهش و حذف زردی تصویر می‌شود."
+    },
+    {
+      id: 9, type: "mc", concept: "تفاوت Relative و Absolute در Selective Color", page: 127, pdf: 52,
+      text: "در پنجره Selective Color، اگر در بخشی از تصویر ۵۰٪ رنگ Magenta وجود داشته باشد و مقدار ۱۰٪ به آن اضافه کنیم، مقدار نهایی در حالت Relative و Absolute به ترتیب چقدر خواهد بود؟",
+      options: [
+        "Relative: ۶۰٪ — Absolute: ۵۵٪",
+        "Relative: ۵۵٪ — Absolute: ۶۰٪",
+        "Relative: ۵۰٪ — Absolute: ۶۰٪",
+        "Relative: ۴۵٪ — Absolute: ۵۵٪"
+      ],
+      answer: "گزینه ب) در حالت نسبی (Relative)، ۱۰٪ از مقدار موجود (۱۰٪ از ۵۰٪ که برابر ۵٪ است) به آن اضافه می‌شود (۵۵٪)؛ اما در حالت مطلق (Absolute)، دقیقاً ۱۰٪ به ۵۰٪ اضافه شده و به ۶۰٪ می‌رسد."
+    },
+    {
+      id: 10, type: "mc", concept: "تفاوت دستورات Invert، Threshold و Posterize", page: 130, pdf: 55,
+      text: "کدام دستور تصویر را به یک اثر سیاه و سفید خالص با کنتراست بسیار بالا (بدون طیف خاکستری) تبدیل می‌کند؟",
+      options: [
+        "Invert (Ctrl + I)",
+        "Threshold",
+        "Equalize",
+        "Posterize"
+      ],
+      answer: "گزینه ب) دستور Threshold پیکسل‌ها را بر اساس یک آستانه روشنایی به دو رنگ سیاه مطلق و سفید مطلق تبدیل می‌کند؛ در حالی که Invert رنگ‌ها را نگاتیو کرده و Posterize تعداد سطوح رنگی را کاهش می‌دهد."
+    },
+    {
+      id: 11, type: "tf", concept: "ابزار Spot Healing Brush", page: 113, pdf: 38,
+      text: "درست یا نادرست: برای استفاده از ابزار Spot Healing Brush جهت حذف لکه‌های کوچک صورت، ابتدا باید با نگه داشتن کلید Alt از ناحیه سالم پوست نمونه‌برداری کنیم.",
+      options: ["درست", "نادرست"],
+      answer: "نادرست است؛ ابزار Spot Healing Brush به صورت خودکار از پیکسل‌های اطراف لکه نمونه می‌گیرد و نیازی به تعیین نقطه مرجع با کلید Alt ندارد."
+    },
+    {
+      id: 12, type: "tf", concept: "مقایسه دستورات Levels و Curves", page: 121, pdf: 46,
+      text: "درست یا نادرست: دستور Curves نسبت به دستور Levels انعطاف‌پذیری بیشتری دارد، زیرا به جای تنظیم سه نقطه (سیاه، سفید و میانی)، امکان تنظیم دقیق تمام نقاط روشنایی روی یک منحنی را فراهم می‌کند.",
+      options: ["درست", "نادرست"],
+      answer: "درست است؛ در پنجره Curves می‌توان چندین نقطه کنترلی روی منحنی ایجاد کرد و هر محدوده نوری را جداگانه تغییر داد."
+    },
+    {
+      id: 13, type: "tf", concept: "تفاوت Vibrance و Saturation", page: 123, pdf: 48,
+      text: "درست یا نادرست: در دستور Vibrance، لغزنده Vibrance بیشتر بر پیکسل‌هایی تأثیر می‌گذارد که غلظت رنگی کمتری دارند و از اشباع بیش از حد رنگ‌های گرم (مانند رنگ پوست) جلوگیری می‌کند.",
+      options: ["درست", "نادرست"],
+      answer: "درست است؛ Vibrance به صورت هوشمند رنگ‌های کم‌رمق را تقویت می‌کند، در حالی که Saturation غلظت تمام رنگ‌ها را به یک نسبت تغییر می‌دهد."
+    },
+    {
+      id: 14, type: "tf", concept: "دستور Match Color", page: 132, pdf: 57,
+      text: "درست یا نادرست: با استفاده از دستور Match Color می‌توان فضای رنگی و نور یک تصویر مقصد را با الگوبرداری از آمار رنگی یک تصویر مرجع (Source) همسان‌سازی کرد.",
+      options: ["درست", "نادرست"],
+      answer: "درست است؛ دستور Image > Adjustments > Match Color برای تطبیق نور و رنگ بین دو تصویر یا دو لایه مختلف به کار می‌رود."
+    },
+    {
+      id: 15, type: "tf", concept: "حالت Duotone", page: 142, pdf: 67,
+      text: "درست یا نادرست: برای فعال شدن گزینه Duotone در منوی Image > Mode و ایجاد جلوه عکس‌های قدیمی دورنگ، تصویر ابتدا باید در مد رنگی Grayscale قرار داشته باشد.",
+      options: ["درست", "نادرست"],
+      answer: "درست است؛ تبدیل تصویر به مد Duotone تنها پس از تبدیل تصویر به Grayscale فعال می‌شود."
+    },
+    {
+      id: 16, type: "fill", concept: "تعریف الگو در فتوشاپ", page: 113, pdf: 38,
+      text: "جای خالی را کامل کنید: برای استفاده از یک بخش انتخاب‌شده از تصویر در ابزار Pattern Stamp، ابتدا باید از منوی Edit دستور .................... را اجرا کنیم.",
+      answer: "Define Pattern"
+    },
+    {
+      id: 17, type: "fill", concept: "گزینه Dither در Gradient Map", page: 128, pdf: 53,
+      text: "جای خالی را کامل کنید: هنگام استفاده از دستور Gradient Map، اگر شیب رنگی ایجادشده حالت پله‌پله و ناهموار داشت، فعال کردن گزینه .................... باعث نرم‌تر شدن انتقال رنگ‌ها می‌شود.",
+      answer: "Dither"
+    },
+    {
+      id: 18, type: "fill", concept: "گزینه Fuzziness در Replace Color", page: 129, pdf: 54,
+      text: "جای خالی را کامل کنید: در پنجره دستور Replace Color، لغزنده .................... دامنه شمول رنگ‌های مشابه اطراف رنگ انتخاب‌شده و نرمی لبه‌های تغییر رنگ را کنترل می‌کند.",
+      answer: "Fuzziness"
+    },
+    {
+      id: 19, type: "fill", concept: "کاربرد دستور Equalize", page: 130, pdf: 55,
+      text: "جای خالی را کامل کنید: دستوری که به صورت خودکار تاریک‌ترین و روشن‌ترین پیکسل‌های تصویر را شناسایی کرده و روشنایی کل تصویر را موازنه (بالانس) می‌کند، دستور .................... نام دارد.",
+      answer: "Equalize"
+    },
+    {
+      id: 20, type: "fill", concept: "رنگ‌آمیزی عکس سیاه و سفید", page: 135, pdf: 60,
+      text: "جای خالی را کامل کنید: هنگام رنگی کردن یک عکس سیاه و سفید در لایه‌ای جدید، برای اینکه بافت و سایه‌روشن‌های تصویر زیرین از زیر رنگ نمایان شود، باید حالت آمیختگی لایه (Blending Mode) را روی Color یا .................... قرار دهیم.",
+      answer: "Overlay"
+    },
+    {
+      id: 21, type: "desc", concept: "مقایسه Clone Stamp و Pattern Stamp", page: 112, pdf: 37,
+      text: "کاربرد ابزارهای Clone Stamp و Pattern Stamp را با یکدیگر مقایسه کرده و تفاوت آن‌ها را بنویسید.",
+      answer: "ابزار Clone Stamp با نمونه‌برداری لحظه‌ای از یک نقطه مرجع (توسط کلید Alt)، پیکسل‌های همان نقطه را در محل جدید کپی می‌کند و برای ترمیم شکستگی‌ها و حذف عیوب به کار می‌رود؛ اما ابزار Pattern Stamp یک الگوی از پیش تعریف‌شده (Define Pattern) را مانند مهر روی نواحی مختلف تصویر تکرار می‌کند."
+    },
+    {
+      id: 22, type: "desc", concept: "بخش‌های پنجره Exposure", page: 122, pdf: 47,
+      text: "سه لغزنده اصلی موجود در پنجره دستور Exposure و وظیفه هر یک را شرح دهید.",
+      answer: "۱) Exposure: میزان نور بخش‌های روشن (Highlights) تصویر را تنظیم می‌کند.\n۲) Offset: نور بخش‌های تیره (Shadows) و رنگ‌های متوسط را بدون تغییر شدید بخش‌های روشن تنظیم می‌کند.\n۳) Gamma Correction: میزان گاما (میانه روشنایی و کنتراست نمایشگر) را اصلاح می‌کند."
+    },
+    {
+      id: 23, type: "desc", concept: "مفهوم اشباع رنگ (Saturation)", page: 126, pdf: 51,
+      text: "منظور از اشباع رنگ (Saturation) چیست و مقادیر ۰٪ و ۱۰۰٪ آن چه مفهومی دارند؟",
+      answer: "اشباع رنگ میزان خلوص یا غلظت یک رنگ فام (Hue) نسبت به رنگ خاکستری موجود در آن است. اگر رنگی فاقد هرگونه رنگ خاکستری باشد، اشباع آن ۱۰۰٪ (کاملاً خالص و درخشان) است و اگر اشباع به ۰٪ برسد، رنگ به خاکستری خنثی تبدیل می‌شود."
+    },
+    {
+      id: 24, type: "practical", concept: "حذف اشیاء با Quick Mask و Content-Aware Fill", page: 139, pdf: 64,
+      text: "سناریوی عملی: می‌خواهید میله‌های جلوی یک پنجره را در یک عکس منظره بدون آسیب به منظره پشت آن حذف کنید. مراحل انجام این کار با استفاده از Quick Mask و قابلیت Content-Aware Fill را به ترتیب بنویسید.",
+      answer: "۱) فعال کردن حالت Edit in Quick Mask Mode از جعبه ابزار و رنگ‌آمیزی روی میله‌ها با ابزار Brush.\n۲) بازگشت به حالت Standard Mode و اجرای دستور Select > Inverse (Ctrl + Shift + I) تا فقط میله‌ها در حالت انتخاب قرار گیرند.\n۳) اجرای دستور Edit > Content-Aware Fill، بررسی ناحیه نمونه‌برداری سبز رنگ در پیش‌نمایش و کلیک روی OK برای جایگزینی هوشمند پس‌زمینه."
+    },
+    {
+      id: 25, type: "practical", concept: "تکنیک جداسازی رنگی (Selective Color Splash)", page: 142, pdf: 67,
+      text: "سناریوی عملی: عکسی از یک اردک سفید با منقار قرمز دارید. مراحل سیاه و سفید کردن کل پس‌زمینه و بدن اردک به طوری که تنها منقار آن رنگی باقی بماند را شرح دهید.",
+      answer: "۱) تهیه نسخه کپی (Duplicate) از فایل و انتخاب دقیق محدوده منقار اردک با ابزار Magnetic Lasso Tool (با مقدار Feather مناسب).\n۲) اجرای دستور Select > Inverse برای معکوس کردن محدوده انتخاب به کل تصویر به جز منقار.\n۳) اجرای دستور Image > Adjustments > Gradient Map و انتخاب شیب رنگی سیاه و سفید."
+    }
+  ]
+};
+
+const unitTitles = {
+  '6': 'واحد کار ششم: دریافت تصاویر (۲۵ سؤال استاندارد)',
+  '7': 'واحد کار هفتم: لایه‌ها در فتوشاپ (۲۵ سؤال استاندارد)',
+  '10': 'واحد کار دهم: ویرایش تصاویر (۲۵ سؤال استاندارد)'
+};
+
+const typeLabels = {
+  all: 'همه سؤالات (۲۵)',
+  mc: 'چهارگزینه‌ای (۱۰)',
+  tf: 'درست / نادرست (۵)',
+  fill: 'جای خالی (۵)',
+  desc: 'تشریحی (۳)',
+  practical: 'عملکردی / عملی (۲)'
+};
+
+const shortTypeLabels = {
+  mc: 'چهارگزینه‌ای',
+  tf: 'درست / نادرست',
+  fill: 'جای خالی',
+  desc: 'تشریحی',
+  practical: 'عملکردی'
+};
+
+let currentUnit = '6';
+let currentFilter = 'all';
+let voices = [];
+let rate = 0.8;
+
+function switchTab(tabId, btn) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+
+  if (tabId === 'quiz') {
+    document.getElementById('bank-view').style.display = 'none';
+    document.getElementById('quiz-view').style.display = 'block';
+    if (!document.getElementById('quiz-questions').innerHTML.trim()) {
+      startQuiz();
+    }
+  } else {
+    document.getElementById('quiz-view').style.display = 'none';
+    document.getElementById('bank-view').style.display = 'block';
+    currentUnit = tabId;
+    currentFilter = 'all';
+    document.getElementById('heading').textContent = unitTitles[tabId];
+    document.getElementById('query').value = '';
+    renderFilters();
+    renderBank();
+  }
+}
+
+function renderFilters() {
+  document.getElementById('filters').innerHTML = Object.entries(typeLabels)
+    .map(([k, v]) => `<button class="filter ${currentFilter === k ? 'active' : ''}" onclick="setFilter('${k}')">${v}</button>`)
+    .join('');
+}
+
+function setFilter(f) {
+  currentFilter = f;
+  renderFilters();
+  renderBank();
+}
+
+function esc(s) {
+  return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+
+function richText(s) {
+  const terms = /\b(Clone Stamp|Pattern Stamp|Healing Brush|Spot Healing Brush|Patch Tool|Red Eye|Dodge Tool|Burn Tool|Sponge Tool|Blur|Sharpen|Smudge Tool|RGB|CMYK|PPI|LPI|DPI|TWAIN|Plug-In|Import|File|View|Ruler Tool|Rulers|Layers|Layer|Opacity|Blend Mode|Blending Mode|Layer Style|Drop Shadow|Inner Shadow|Inner Glow|Outer Glow|Bevel|Emboss|Stroke|Gradient Overlay|Pattern Overlay|Color Overlay|Duplicate Layer|Link Layers|Flatten Image|Merge Down|Merge Visible|Adjustment Layer|Rasterize Type|World-Ready Layout|Warp Text|Quick Mask|Content-Aware Fill|Match Color|Selective Color|Gradient Map|Replace Color|Invert|Equalize|Threshold|Posterize|Duotone|Grayscale|Hue\/Saturation|Color Balance|Levels|Curves|Exposure|Vibrance|Saturate|Desaturate|Protect Tones|Finger Painting|Aligned|Source|Destination|Relative|Absolute|Dither|Fuzziness|Scrubby Zoom|Fit on Screen|Lock Guides|Extras|Ctrl\+R|Ctrl\+H|Ctrl\+E|Ctrl\+U|Ctrl\+B|Ctrl\+I|Ctrl\+0|Ctrl\+Shift\+\]|Ctrl\+\[|Ctrl\+\]|Alt|Shift|Spacebar|PSD|TIFF|BMP)\b/g;
+  return esc(s).replace(terms, w => `<span class="en" onclick="event.stopPropagation();speak('${w.replace(/'/g, "\\'")}',this)">${w} 🔊</span>`);
+}
+
+function renderBank() {
+  const all = bank[currentUnit];
+  const qStr = document.getElementById('query').value.trim().toLowerCase();
+  const filtered = all.filter(item => {
+    const matchType = currentFilter === 'all' || item.type === currentFilter;
+    const matchSearch = !qStr || (item.text + ' ' + item.answer + ' ' + item.concept + ' ' + (item.options || []).join(' ')).toLowerCase().includes(qStr);
+    return matchType && matchSearch;
+  });
+
+  if (!filtered.length) {
+    document.getElementById('list').innerHTML = '<div class="empty">موردی مطابق با جست‌وجوی شما یافت نشد.</div>';
+    return;
+  }
+
+  document.getElementById('list').innerHTML = filtered.map(q => {
+    const optsHtml = q.options
+      ? `<ul class="options">${q.options.map((o, idx) => `<li>${q.type === 'mc' ? ['الف', 'ب', 'ج', 'د'][idx] + ') ' : ''}${richText(o)}</li>`).join('')}</ul>`
+      : '';
+    return `
+      <article class="card" onclick="toggleCard(this)">
+        <div class="qhead">
+          <span class="num">سؤال ${q.id}</span>
+          <span class="kind ${q.type}">${shortTypeLabels[q.type]}</span>
+        </div>
+        <div class="qtext">${richText(q.text)}</div>
+        ${optsHtml}
+        <div class="hint">برای مشاهده پاسخ کلیدی و تحلیل کلیک کنید ▾</div>
+        <div class="answer">
+          <strong>پاسخ استاندارد و تشریحی:</strong>
+          <p>${richText(q.answer)}</p>
+        </div>
+        <details onclick="event.stopPropagation()">
+          <summary>ارجاع به کتاب درسی</summary>
+          <p>واحد کار ${currentUnit} — مبحث «${esc(q.concept)}» | صفحه چاپی ${q.page} کتاب (صفحه ${q.pdf} فایل PDF).</p>
+        </details>
+      </article>
+    `;
+  }).join('');
+}
+
+function toggleCard(card) {
+  card.classList.toggle('open');
+  card.querySelector('.hint').textContent = card.classList.contains('open')
+    ? 'بستن پاسخ ▴'
+    : 'برای مشاهده پاسخ کلیدی و تحلیل کلیک کنید ▾';
+}
+
+/* --- Quiz Logic (30 Randomized Objective Questions) --- */
+let currentQuizItems = [];
+let quizSubmitted = false;
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function getCorrectIndex(q) {
+  if (q.type === 'tf') {
+    return q.answer.trim().startsWith('درست') ? 0 : 1;
+  }
+  const map = { 'الف': 0, 'ب': 1, 'ج': 2, 'د': 3 };
+  const m = q.answer.match(/گزینه\s*(الف|ب|ج|د)(?=[)\s،؛:.]|$)/);
+  return m && Number.isInteger(map[m[1]]) ? map[m[1]] : 0;
+}
+
+function startQuiz() {
+  quizSubmitted = false;
+  document.getElementById('score-container').innerHTML = '';
+  document.getElementById('submit-quiz-btn').style.display = 'inline-block';
+
+  const picked = [];
+  ['6', '7', '10'].forEach(u => {
+    const objPool = bank[u].filter(q => q.type === 'mc' || q.type === 'tf');
+    const selected = shuffle(objPool).slice(0, 10).map(q => ({ ...q, unit: u, correctIdx: getCorrectIndex(q) }));
+    picked.push(...selected);
+  });
+
+  currentQuizItems = shuffle(picked);
+
+  document.getElementById('quiz-questions').innerHTML = currentQuizItems.map((q, idx) => {
+    const optsHtml = q.options.map((opt, oIdx) => `
+      <label class="quiz-opt-label" id="lbl-${idx}-${oIdx}">
+        <input type="radio" name="q-${idx}" value="${oIdx}">
+        <span>${q.type === 'mc' ? ['الف', 'ب', 'ج', 'د'][oIdx] + ') ' : ''}${esc(opt)}</span>
+      </label>
+    `).join('');
+
+    return `
+      <div class="quiz-q" id="quiz-card-${idx}">
+        <div class="quiz-meta">
+          <span><b>پرسش ${idx + 1} از ۳۰</b></span>
+          <span>واحد کار ${q.unit} | ${shortTypeLabels[q.type]}</span>
+        </div>
+        <div class="qtext">${richText(q.text)}</div>
+        <div class="quiz-opts">${optsHtml}</div>
+        <div class="quiz-feedback" id="fb-${idx}" style="display:none;"></div>
+      </div>
+    `;
+  }).join('');
+}
+
+function gradeQuiz() {
+  if (quizSubmitted) return;
+  let correctCount = 0;
+  let wrongCount = 0;
+  let emptyCount = 0;
+
+  currentQuizItems.forEach((q, idx) => {
+    const chosen = document.querySelector(`input[name="q-${idx}"]:checked`);
+    const card = document.getElementById(`quiz-card-${idx}`);
+    const fb = document.getElementById(`fb-${idx}`);
+    const rightLbl = document.getElementById(`lbl-${idx}-${q.correctIdx}`);
+    if (rightLbl) rightLbl.classList.add('opt-right');
+
+    if (!chosen) {
+      emptyCount++;
+      card.classList.add('wrong-card');
+      fb.innerHTML = `<b>بدون پاسخ!</b> ${esc(q.answer)}`;
+    } else {
+      const val = parseInt(chosen.value, 10);
+      if (val === q.correctIdx) {
+        correctCount++;
+        card.classList.add('correct-card');
+        fb.innerHTML = `<b>پاسخ صحیح!</b> ${esc(q.answer)}`;
+      } else {
+        wrongCount++;
+        card.classList.add('wrong-card');
+        document.getElementById(`lbl-${idx}-${val}`).classList.add('opt-wrong');
+        fb.innerHTML = `<b>پاسخ نادرست!</b> ${esc(q.answer)}`;
+      }
+    }
+    fb.style.display = 'block';
+    document.querySelectorAll(`input[name="q-${idx}"]`).forEach(inp => inp.disabled = true);
+  });
+
+  quizSubmitted = true;
+  document.getElementById('submit-quiz-btn').style.display = 'none';
+
+  const score20 = ((correctCount / currentQuizItems.length) * 20).toFixed(2);
+  const percent = Math.round((correctCount / currentQuizItems.length) * 100);
+  let statusMsg = 'نیاز به مرور بیشتر کتاب درسی دارید.';
+  if (score20 >= 18) statusMsg = 'عالی! تسلط کامل بر مباحث واحدهای کار ۶، ۷ و ۱۰.';
+  else if (score20 >= 15) statusMsg = 'خوب! بخش عمده مفاهیم را به خوبی فرا گرفته‌اید.';
+  else if (score20 >= 12) statusMsg = 'متوسط؛ برای تسلط کامل پاسخ‌های تشریحی را مرور کنید.';
+
+  document.getElementById('score-container').innerHTML = `
+    <div class="score-board">
+      <h3>کارنامه آزمون جامع شما</h3>
+      <p>${statusMsg}</p>
+      <div class="score-grid">
+        <div class="score-item"><span>نمره از ۲۰</span><strong>${score20}</strong></div>
+        <div class="score-item"><span>درصد تسلط</span><strong>${percent}٪</strong></div>
+        <div class="score-item"><span>پاسخ صحیح</span><strong style="color:#a5d6a7;">${correctCount}</strong></div>
+        <div class="score-item"><span>پاسخ غلط</span><strong style="color:#ef9a9a;">${wrongCount}</strong></div>
+        <div class="score-item"><span>نزده</span><strong>${emptyCount}</strong></div>
+      </div>
+    </div>
+  `;
+  document.getElementById('score-container').scrollIntoView({ behavior: 'smooth' });
+}
+
+/* --- Speech Synthesis with Male / Female Voice Selection --- */
+function classifyVoiceGender(v) {
+  const n = (v.name + ' ' + v.voiceURI).toLowerCase();
+  const femaleHints = ['female', 'zira', 'hazel', 'susan', 'samantha', 'victoria', 'karen', 'moira', 'tessa', 'fiona', 'aria', 'jenny', 'michelle', 'ana', 'emma', 'sonia', 'libby', 'mia', 'natasha', 'clara', 'neerja', 'heera', 'kalpana', 'veena', 'lekha', 'google us english', 'google uk english female', 'woman', 'girl'];
+  const maleHints = ['male', 'david', 'mark', 'george', 'daniel', 'alex', 'fred', 'tom', 'oliver', 'arthur', 'guy', 'ryan', 'christopher', 'eric', 'steffan', 'andrew', 'brian', 'roger', 'liam', 'connor', 'william', 'james', 'rishi', 'prabhat', 'ravi', 'google uk english male', 'man', 'boy'];
+
+  if (maleHints.some(h => n.includes(h)) && !n.includes('female')) return 'male';
+  if (femaleHints.some(h => n.includes(h))) return 'female';
+  return 'female';
+}
+
+function loadVoices() {
+  if (!('speechSynthesis' in window)) return;
+  voices = speechSynthesis.getVoices();
+  const gender = document.getElementById('genderSelect').value;
+  const s = document.getElementById('voice');
+  const enVoices = voices.filter(v => v.lang.toLowerCase().startsWith('en'));
+
+  s.innerHTML = `<option value="auto">خودکار (${gender === 'female' ? 'صدای خانم' : 'صدای آقا'})</option>`;
+
+  enVoices.forEach(v => {
+    const g = classifyVoiceGender(v);
+    const tag = g === 'male' ? 'آقا' : 'خانم';
+    const o = document.createElement('option');
+    o.value = v.voiceURI;
+    o.textContent = `[${tag}] ${v.name} (${v.lang})`;
+    s.appendChild(o);
+  });
+
+  const matched = enVoices.find(v => classifyVoiceGender(v) === gender);
+  if (matched) {
+    s.value = matched.voiceURI;
+  }
+}
+
+function onGenderChange() {
+  loadVoices();
+  testVoice();
+}
+
+function speak(text, el) {
+  if (!('speechSynthesis' in window)) return;
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'en-US';
+  u.rate = rate;
+
+  const gender = document.getElementById('genderSelect').value;
+  const selectedUri = document.getElementById('voice').value;
+  const enVoices = voices.filter(v => v.lang.toLowerCase().startsWith('en'));
+
+  let chosenVoice = null;
+  if (selectedUri !== 'auto') {
+    chosenVoice = voices.find(x => x.voiceURI === selectedUri);
+  }
+  if (!chosenVoice) {
+    chosenVoice = enVoices.find(v => classifyVoiceGender(v) === gender) || enVoices[0];
+  }
+
+  if (chosenVoice) {
+    u.voice = chosenVoice;
+    // Fallback pitch adjustment if system only has one voice engine
+    const detected = classifyVoiceGender(chosenVoice);
+    if (gender === 'male' && detected !== 'male') {
+      u.pitch = 0.72;
+    } else if (gender === 'female' && detected !== 'female') {
+      u.pitch = 1.25;
+    } else {
+      u.pitch = 1.0;
+    }
+  } else {
+    u.pitch = gender === 'male' ? 0.72 : 1.25;
+  }
+
+  if (el) {
+    el.classList.add('speaking');
+    u.onend = u.onerror = () => el.classList.remove('speaking');
+  }
+  speechSynthesis.speak(u);
+}
+
+function testVoice() {
+  speak('Scanner, CMYK, Ruler Tool, Flatten Image, Adjustment Layer, Clone Stamp, Healing Brush, Color Balance.');
+}
+
+document.getElementById('rate').oninput = e => {
+  rate = +e.target.value;
+  document.getElementById('rateVal').textContent = rate.toFixed(2) + '×';
+};
+
+if ('speechSynthesis' in window) {
+  loadVoices();
+  speechSynthesis.onvoiceschanged = loadVoices;
+}
+
+renderFilters();
+renderBank();
+</script>
+</body>
+</html>
